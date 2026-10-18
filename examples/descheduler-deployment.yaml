@@ -1,0 +1,202 @@
+# Tier-aware descheduling: configuration only, on top of upstream
+# kubernetes-sigs/descheduler (v0.37+).
+#
+# The LowNodeUtilization plugin classifies nodes by a Prometheus query when
+# metricsUtilization.source is Prometheus: the query returns a vector with an
+# `instance` label matching the node name and a value in <0;1>. We point it at
+# the DRAM anonymous-memory utilization recording rule exposed by
+# memory-tier-exporter, so "overutilized" means "the node's fast tier is
+# filling with working-set memory" — not "its summed memory request is high".
+#
+# The DefaultEvictor labelSelector restricts eviction candidates to KubeVirt
+# launcher pods: evicting a launcher pod whose VMI sets
+# evictionStrategy: LiveMigrate triggers a live migration, so rebalancing is
+# service-preserving. VMs without that eviction strategy are not touched.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tier-descheduler-policy
+  namespace: cxl-observability
+data:
+  policy.yaml: |
+    apiVersion: descheduler/v1alpha2
+    kind: DeschedulerPolicy
+    metricsProviders:
+    - source: Prometheus
+      prometheus:
+        url: https://thanos-querier.openshift-monitoring.svc:9091
+    profiles:
+    - name: tier-aware-rebalance
+      pluginConfig:
+      - name: DefaultEvictor
+        args:
+          # Restrict eviction candidates to KubeVirt launcher pods. Launcher
+          # pods always carry emptyDir runtime volumes, so local-storage
+          # eviction must be allowed; VMs opt into live migration via their
+          # evictionStrategy, which turns this eviction into a migration.
+          evictLocalStoragePods: true
+          labelSelector:
+            matchLabels:
+              kubevirt.io: virt-launcher
+      - name: LowNodeUtilization
+        args:
+          thresholds:
+            MetricResource: 40
+          targetThresholds:
+            MetricResource: 70
+          metricsUtilization:
+            source: Prometheus
+            prometheus:
+              # instance must be the node name; value in <0;1>.
+              # node:memory_dram_anon:ratio is defined in examples/recording-rules.yaml.
+              query: label_replace(node:memory_dram_anon:ratio, "instance", "$1", "node", "(.*)")
+      plugins:
+        balance:
+          enabled:
+          - LowNodeUtilization
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tier-descheduler
+  namespace: cxl-observability
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: tier-descheduler
+rules:
+  - apiGroups: ["events.k8s.io"]
+    resources: ["events"]
+    verbs: ["create", "update"]
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs: ["get", "watch", "list"]
+  - apiGroups: [""]
+    resources: ["namespaces"]
+    verbs: ["get", "watch", "list"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "watch", "list"]
+  - apiGroups: [""]
+    resources: ["pods/eviction"]
+    verbs: ["create"]
+  - apiGroups: ["scheduling.k8s.io"]
+    resources: ["priorityclasses"]
+    verbs: ["get", "watch", "list"]
+  - apiGroups: ["policy"]
+    resources: ["poddisruptionbudgets"]
+    verbs: ["get", "watch", "list"]
+  - apiGroups: [""]
+    resources: ["persistentvolumeclaims"]
+    verbs: ["get", "watch", "list"]
+  - apiGroups: ["coordination.k8s.io"]
+    resources: ["leases"]
+    verbs: ["create", "update"]
+  - apiGroups: ["coordination.k8s.io"]
+    resources: ["leases"]
+    resourceNames: ["tier-descheduler"]
+    verbs: ["get", "patch", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: tier-descheduler
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: tier-descheduler
+subjects:
+  - kind: ServiceAccount
+    name: tier-descheduler
+    namespace: cxl-observability
+---
+# The descheduler reads node utilization from the platform's monitoring API
+# (Thanos Querier). Its Prometheus client authenticates with the pod's service
+# account token and must be allowed to query metrics.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: tier-descheduler-cluster-monitoring-view
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-monitoring-view
+subjects:
+  - kind: ServiceAccount
+    name: tier-descheduler
+    namespace: cxl-observability
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tier-descheduler
+  namespace: cxl-observability
+  labels:
+    app: tier-descheduler
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tier-descheduler
+  template:
+    metadata:
+      labels:
+        app: tier-descheduler
+    spec:
+      serviceAccountName: tier-descheduler
+      containers:
+        - name: descheduler
+          image: image-registry.openshift-image-registry.svc:5000/cxl-observability/descheduler:v0.37.0-tlsfix
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/descheduler"]
+          args:
+            - "--policy-config-file"
+            - "/policy-dir/policy.yaml"
+            - "--descheduling-interval"
+            - "1m"
+            - "--v"
+            - "4"
+          ports:
+            - containerPort: 10258
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 10258
+              scheme: HTTPS
+            initialDelaySeconds: 3
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /policy-dir
+              name: policy-volume
+            # The descheduler's Prometheus client verifies TLS against whatever
+            # CA bundle sits at the standard service-account path, and its
+            # Kubernetes client reads its token from the same directory. The
+            # platform monitoring endpoint (Thanos Querier) presents a
+            # certificate signed by the service-serving signer, not the
+            # API-server CA, and upstream descheduler offers no CA override.
+            # As a workaround we mount a Secret at that path containing the
+            # service-account token plus a bundle of both CA chains. A small
+            # upstream patch (configurable Prometheus CA path) removes the
+            # need for this; see the repository documentation.
+            - name: sa-credentials
+              mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+              readOnly: true
+      volumes:
+        - name: policy-volume
+          configMap:
+            name: tier-descheduler-policy
+        - name: sa-credentials
+          secret:
+            secretName: tier-descheduler-sa-credentials

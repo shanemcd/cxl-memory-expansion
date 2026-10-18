@@ -1,0 +1,100 @@
+# Alerting rules for CXL / memory-tier observability.
+#
+# Alerts are intentionally coarse operational signals, not workload-quality
+# verdicts. They answer: is DRAM filling up, is memory persistently spilling
+# into slower tiers, is the kernel churning pages between tiers, and is the
+# observability itself healthy?
+#
+# Thresholds are starting points for operators to tune against the sizing
+# guidance (hot working set within 50-80% of DRAM). Sustained spill is not an
+# emergency — cold pages on CXL are exactly what CXL is for — but persistent
+# heavy spill paired with demotion churn means the node is packed beyond what
+# its DRAM can serve, and workloads should move.
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: memory-tier-alerts
+  namespace: cxl-observability
+  labels:
+    app: memory-tier-exporter
+spec:
+  groups:
+    - name: node-memory-tier.alerts
+      rules:
+        # DRAM is nearly full. With kernel demotion active, cold pages should
+        # move away on their own; a sustained near-full ratio means the hot
+        # set itself approaches DRAM capacity (the sizing rule is violated).
+        - alert: MemoryTierDRAMNearFull
+          expr: node:memory_dram_used:ratio > 0.90
+          for: 15m
+          labels:
+            severity: warning
+          annotations:
+            summary: DRAM on {{ $labels.node }} is nearly full
+            description: >-
+              The fastest memory tier on node {{ $labels.node }} has been more
+              than 90% used for 15 minutes. The node's combined hot working
+              set may exceed the DRAM planning ceiling. Move VMs off this node
+              or migrate cold capacity deliberately.
+
+        # A large share of used memory lives below DRAM. Informational at
+        # moderate levels (that is what the expanded tier is for); actionable
+        # when persistent and combined with churn.
+        - alert: MemoryTierSpillSustained
+          expr: node:memory_spilled:ratio > 0.20
+          for: 30m
+          labels:
+            severity: info
+          annotations:
+            summary: Sustained memory spill to slower tiers on {{ $labels.node }}
+            description: >-
+              More than 20% of used memory on node {{ $labels.node }} has
+              resided in tiers below DRAM for 30 minutes. Cold spill is
+              expected under overcommit; check whether the workloads there
+              tolerate the slower tier and whether the DRAM ceiling for
+              placement should be lowered.
+
+        # Demotion churn: pages moving down faster than a trickle for a long
+        # window. Paired with promotion churn this is thrashing.
+        - alert: MemoryTierDemoteChurn
+          expr: node:memory_pgdemote:rate5m > 1000
+          for: 30m
+          labels:
+            severity: warning
+          annotations:
+            summary: Sustained page demotion on {{ $labels.node }}
+            description: >-
+              Node {{ $labels.node }} has demoted more than 1000 pages per
+              second (5-minute rate) for 30 minutes. The node is cycling
+              memory between tiers; reduce its VM density or investigate the
+              workload memory footprint.
+
+        # A single VM keeps a majority of its memory in slower tiers: the
+        # prime candidate for the tier-aware descheduler to relocate.
+        - alert: MemoryTierVMHeavilySpilled
+          expr: vmi:memory_spilled:ratio > 0.50
+          for: 30m
+          labels:
+            severity: info
+          annotations:
+            summary: VM {{ $labels.namespace }}/{{ $labels.vmi }} mostly on slower tiers
+            description: >-
+              More than half of the memory attributed to VM
+              {{ $labels.namespace }}/{{ $labels.vmi }} on node
+              {{ $labels.node }} has resided below DRAM for 30 minutes.
+              Consider live-migrating this VM to a node with more DRAM
+              headroom.
+
+        # The observability loop itself must be healthy for any of the above
+        # to mean anything.
+        - alert: MemoryTierExporterDown
+          expr: up{job="memory-tier-exporter"} == 0
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: memory-tier-exporter down on {{ $labels.instance }}
+            description: >-
+              The memory-tier exporter target {{ $labels.instance }} has been
+              down for 10 minutes. Tier utilization, spill, and movement
+              signals are unknown for its node.

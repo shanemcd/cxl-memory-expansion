@@ -1,0 +1,13 @@
+diff --git a/pkg/descheduler/client/client.go b/pkg/descheduler/client/client.go
+index 6f1b64f..d7f3151 100644
+--- a/pkg/descheduler/client/client.go
++++ b/pkg/descheduler/client/client.go
+@@ -145,7 +145,7 @@ func CreatePrometheusClient(prometheusURL, authToken string) (promapi.Client, *h
+ 		TLSHandshakeTimeout: 10 * time.Second,
+ 		TLSClientConfig: &tls.Config{
+ 			RootCAs:    caCertPool,
+-			ServerName: u.Host,
++			ServerName: u.Hostname(),
+ 		},
+ 	}
+ 	roundTripper := transport.NewBearerAuthRoundTripper(

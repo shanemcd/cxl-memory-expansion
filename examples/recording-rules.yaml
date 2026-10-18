@@ -1,0 +1,102 @@
+# Prometheus recording rules for CXL / memory-tier observability.
+#
+# These rules derive the tier-level signals that dashboards, alerts, and the
+# descheduler consume from the raw node_memory_tier_* metrics exported by
+# memory-tier-exporter (https://github.com/shanemcd/memory-tier-exporter).
+#
+# Label conventions:
+#   node  the Kubernetes node name
+#   tier  kernel memory-tier number (smaller = faster)
+#   rank  zero-based tier position on the node; rank "0" is the fastest tier
+#         present (CPU-attached DRAM on current platforms), rank "1" the next
+#         slower tier (CXL memory when present)
+#
+# Apply (OpenShift): the namespace must carry the openshift.io/cluster-monitoring
+# label for the platform Prometheus to select this PrometheusRule.
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: memory-tier-recording-rules
+  namespace: cxl-observability
+  labels:
+    app: memory-tier-exporter
+spec:
+  groups:
+    - name: node-memory-tier.rules
+      interval: 30s
+      rules:
+        # --- Per-tier capacity and usage per node -------------------------
+        - record: node:memory_tier_used_bytes:sum
+          expr: sum by (node, tier, rank) (node_memory_tier_memused_bytes)
+        - record: node:memory_tier_total_bytes:sum
+          expr: sum by (node, tier, rank) (node_memory_tier_memtotal_bytes)
+
+        # --- DRAM utilization: the headline number -------------------------
+        # The combined hot working set of a node should fit in DRAM with
+        # headroom (planning ceiling on the order of 50-80%). This ratio is
+        # the measured reality behind that plan, and the signal a tier-aware
+        # descheduler reacts to.
+        - record: node:memory_dram_used:ratio
+          expr: |
+            sum by (node) (node_memory_tier_memused_bytes{rank="0"})
+            /
+            sum by (node) (node_memory_tier_memtotal_bytes{rank="0"})
+
+        # --- DRAM anonymous-memory utilization ------------------------------
+        # Node "used" includes reclaimable page cache; anonymous memory is
+        # what tiering actually moves and what a hot working set is made of.
+        # This ratio is the honest signal behind the hot-set-in-DRAM sizing
+        # rule.
+        - record: node:memory_dram_anon:ratio
+          expr: |
+            sum by (node) (node_memory_tier_anon_bytes{rank="0"})
+            /
+            sum by (node) (node_memory_tier_memtotal_bytes{rank="0"})
+
+        # --- Lower-tier (CXL) utilization ----------------------------------
+        # Empty on nodes without a slower tier (division has no denominator),
+        # which is the intended behavior: no CXL, no CXL utilization series.
+        - record: node:memory_cxl_used:ratio
+          expr: |
+            sum by (node) (node_memory_tier_memused_bytes{rank!="0"})
+            /
+            sum by (node) (node_memory_tier_memtotal_bytes{rank!="0"})
+
+        # --- Spill: how much of a node's used memory is below DRAM ---------
+        - record: node:memory_spilled:ratio
+          expr: |
+            sum by (node) (node_memory_tier_memused_bytes{rank!="0"})
+            /
+            sum by (node) (node_memory_tier_memused_bytes)
+
+        # --- Movement rates --------------------------------------------------
+        # Pages per second between tiers, by node. Demotion is expected and
+        # healthy in bursts; sustained high rates indicate churn.
+        - record: node:memory_pgdemote:rate5m
+          expr: sum by (node) (rate(node_memory_tier_pgdemote_total[5m]))
+        - record: node:memory_pgpromote:rate5m
+          expr: sum by (node) (rate(node_memory_tier_pgpromote_total{mode="success"}[5m]))
+
+        # --- Per-VM tier attribution ------------------------------------------
+        - record: vmi:memory_tier_resident_bytes:sum
+          expr: |
+            sum by (node, vmi, namespace, rank) (
+              node_memory_tier_vm_anon_bytes
+              + node_memory_tier_vm_file_bytes
+              + node_memory_tier_vm_shmem_bytes
+            )
+        - record: vmi:memory_spilled:ratio
+          expr: |
+            sum by (node, vmi, namespace) (
+              node_memory_tier_vm_anon_bytes{rank!="0"}
+              + node_memory_tier_vm_file_bytes{rank!="0"}
+              + node_memory_tier_vm_shmem_bytes{rank!="0"}
+            )
+            /
+            sum by (node, vmi, namespace) (
+              node_memory_tier_vm_anon_bytes
+              + node_memory_tier_vm_file_bytes
+              + node_memory_tier_vm_shmem_bytes
+            )
+        - record: vmi:memory_pgdemote:rate5m
+          expr: sum by (node, vmi, namespace) (rate(node_memory_tier_vm_pgdemote_total[5m]))
