@@ -1,0 +1,123 @@
+{
+ "captured_at": "2026-10-18T03:04:51.279246+00:00",
+ "dram_ratio": [
+  {
+   "labels": {
+    "__name__": "node:memory_dram_used:ratio",
+    "node": "cxl-master-0",
+    "prometheus": "openshift-monitoring/k8s"
+   },
+   "value": "0.989565491057706"
+  },
+  {
+   "labels": {
+    "__name__": "node:memory_dram_used:ratio",
+    "node": "worker-cxl-0",
+    "prometheus": "openshift-monitoring/k8s"
+   },
+   "value": "0.6670386688655328"
+  },
+  {
+   "labels": {
+    "__name__": "node:memory_dram_used:ratio",
+    "node": "worker-dram-0",
+    "prometheus": "openshift-monitoring/k8s"
+   },
+   "value": "0.6882738216841137"
+  }
+ ],
+ "cxl_ratio": [
+  {
+   "labels": {
+    "__name__": "node:memory_cxl_used:ratio",
+    "node": "worker-cxl-0",
+    "prometheus": "openshift-monitoring/k8s"
+   },
+   "value": "0.03851604461669922"
+  }
+ ],
+ "spill_ratio": [
+  {
+   "labels": {
+    "__name__": "node:memory_spilled:ratio",
+    "node": "worker-cxl-0",
+    "prometheus": "openshift-monitoring/k8s"
+   },
+   "value": "0.028943453234110374"
+  }
+ ],
+ "pgdemote_rate": [
+  {
+   "labels": {
+    "__name__": "node:memory_pgdemote:rate5m",
+    "node": "cxl-master-0",
+    "prometheus": "openshift-monitoring/k8s"
+   },
+   "value": "0"
+  },
+  {
+   "labels": {
+    "__name__": "node:memory_pgdemote:rate5m",
+    "node": "worker-cxl-0",
+    "prometheus": "openshift-monitoring/k8s"
+   },
+   "value": "428.44074074074075"
+  },
+  {
+   "labels": {
+    "__name__": "node:memory_pgdemote:rate5m",
+    "node": "worker-dram-0",
+    "prometheus": "openshift-monitoring/k8s"
+   },
+   "value": "0"
+  }
+ ],
+ "vm_resident": [
+  {
+   "labels": {
+    "__name__": "vmi:memory_tier_resident_bytes:sum",
+    "namespace": "default",
+    "node": "worker-cxl-0",
+    "prometheus": "openshift-monitoring/k8s",
+    "rank": "0",
+    "vmi": "tier-demo"
+   },
+   "value": "47509504"
+  },
+  {
+   "labels": {
+    "__name__": "vmi:memory_tier_resident_bytes:sum",
+    "namespace": "default",
+    "node": "worker-cxl-0",
+    "prometheus": "openshift-monitoring/k8s",
+    "rank": "1",
+    "vmi": "tier-demo"
+   },
+   "value": "157720576"
+  }
+ ],
+ "vm_spill": [
+  {
+   "labels": {
+    "__name__": "vmi:memory_spilled:ratio",
+    "namespace": "default",
+    "node": "worker-cxl-0",
+    "prometheus": "openshift-monitoring/k8s",
+    "vmi": "tier-demo"
+   },
+   "value": "0.7685061371120646"
+  }
+ ],
+ "vm_demote_rate": [
+  {
+   "labels": {
+    "__name__": "vmi:memory_pgdemote:rate5m",
+    "namespace": "default",
+    "node": "worker-cxl-0",
+    "prometheus": "openshift-monitoring/k8s",
+    "vmi": "tier-demo"
+   },
+   "value": "136.72002133333334"
+  }
+ ]
+}
