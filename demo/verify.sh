@@ -71,6 +71,32 @@ check_series() {
     fail "$name ($n series, wanted >= $min)"
   fi
 }
+# A recording rule can be healthy yet produce no series when its inputs are
+# legitimately empty (e.g. no workload is currently spilled), so rules that
+# only materialize under memory pressure are checked for rule health, not
+# series presence. A rule whose expression fails to evaluate reports
+# health != ok and fails this check.
+check_rule() {
+  local name="$1" want="$2"
+  local cmd=(curl -s -H "Authorization: Bearer $TOKEN" "https://${HOST}/api/v1/rules")
+  if [ -n "${THANOS_CACERT:-}" ]; then cmd+=(--cacert "$THANOS_CACERT"); fi
+  if [ -n "${THANOS_RESOLVE:-}" ]; then cmd+=(--resolve "$THANOS_RESOLVE"); fi
+  local health; health=$("${cmd[@]}" | python3 -c '
+import json,sys
+want = sys.argv[1]
+d = json.load(sys.stdin)
+for g in d.get("data", {}).get("groups", []):
+    for r in g.get("rules", []):
+        if r.get("name") == want:
+            print(r.get("health"))
+            sys.exit(0)
+print("missing")' "$want")
+  if [ "$health" = "ok" ]; then
+    pass "rule health: $want"
+  else
+    fail "rule health: $want (health: $health)"
+  fi
+}
 check_series "exporter up"              'up{job="memory-tier-exporter"}' 3
 check_series "tier nodes"               'node_memory_tier_nodes' 3
 check_series "per-node tier memory"     'node_memory_tier_memtotal_bytes' 3
@@ -81,6 +107,10 @@ check_series "rule: dram anon ratio"    'node:memory_dram_anon:ratio' 3
 check_series "rule: cxl used ratio"     'node:memory_cxl_used:ratio' 1
 check_series "rule: spill ratio"        'node:memory_spilled:ratio' 1
 check_series "rule: demote rate"        'node:memory_pgdemote:rate5m' 3
+check_series "workload attribution"     'node_memory_tier_workload_anon_bytes' 1
+check_series "rule: workload resident"  'workload:memory_tier_resident_bytes:sum' 1
+check_rule   "rule: workload spill"     'workload:memory_spilled:ratio'
+check_series "rule: workload demote rate" 'workload:memory_pgdemote:rate5m' 1
 check_series "alerts defined"           'ALERTS{alertname=~"MemoryTier.*"}' 1
 
 echo
