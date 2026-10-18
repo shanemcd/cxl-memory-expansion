@@ -85,6 +85,37 @@ spec:
               Consider relocating it to a node with more DRAM headroom
               (for KubeVirt VMs: live migration).
 
+        # A workload governed by a DRAM-only MemoryPolicy is leaking memory
+        # onto the CXL tier. DRAM-only placement is enforced by admission
+        # (hugepage backing + Memory Manager Static); a spill means the
+        # contract is broken — e.g. the workload predates governance, node
+        # config regressed, or someone bypassed the webhook. Joins the spill
+        # ratio with the policy-mode label the operator stamps on VMIs
+        # (propagated to launcher pods, exposed via kube-state-metrics).
+        - alert: MemoryTierDRAMOnlyWorkloadSpilled
+          expr: |
+            workload:memory_spilled:ratio > 0
+              and on (namespace, workload)
+            label_replace(
+              kube_pod_labels{label_memorytiering_shanemcd_com_policy_mode="DRAMOnly"},
+              "workload", "$1", "label_vmi_kubevirt_io_id", "(.+)"
+            )
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: DRAM-only workload {{ $labels.namespace }}/{{ $labels.workload }} spilled to slower tiers
+            description: >-
+              Workload {{ $labels.namespace }}/{{ $labels.workload }} on node
+              {{ $labels.node }} is governed by a DRAM-only memory policy,
+              but {{ $value | humanizePercentage }} of its attributed memory
+              is resident below DRAM. Placement is supposed to be enforced
+              by hugepage backing and Memory Manager Static placement at
+              admission time; a spill indicates the contract is broken (work
+              workload predating governance, node config regression, or a
+              bypassed webhook). Investigate the workload's launcher pod
+              backing and the node's memory manager state.
+
         # The observability loop itself must be healthy for any of the above
         # to mean anything.
         - alert: MemoryTierExporterDown
