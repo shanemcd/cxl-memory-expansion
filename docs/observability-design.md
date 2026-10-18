@@ -91,17 +91,19 @@ PSI is absent on some kernels (including the validation lab's CXL test
 kernel): the exporter simply emits nothing rather than zeros, and the
 absence is visible as missing series — unknown, not zero.
 
-### Per-VM attribution
+### Per-workload attribution
 
 | Metric | Labels | Source |
 |---|---|---|
-| `node_memory_tier_vm_anon_bytes` / `vm_file_bytes` / `vm_shmem_bytes` | node, vmi, namespace, numa_node, tier, rank | launcher pod cgroup `memory.numa_stat` |
-| `node_memory_tier_vm_pgdemote_total` / `vm_pgpromote_total` | node, vmi, namespace, mode, numa_node, tier, rank | same, movement rows |
+| `node_memory_tier_workload_anon_bytes` / `workload_file_bytes` / `workload_shmem_bytes` | node, workload, workload_kind, namespace, pod, numa_node, tier, rank | workload pod cgroup `memory.numa_stat` |
+| `node_memory_tier_workload_pgdemote_total` / `workload_pgpromote_total` | node, workload, workload_kind, namespace, pod, mode, numa_node, tier, rank | same, movement rows |
 
-The exporter discovers launcher pods through the Kubernetes API (label
-`kubevirt.io=virt-launcher`, VMI name from `vmi.kubevirt.io/id`) and reads
-each pod's cgroup. These numbers include the launcher's own overhead (QEMU,
-libvirt, sidecars) — attribution, not a precise guest-RAM guarantee.
+The exporter discovers workload pods through the Kubernetes API — the label
+selector is configurable, and the default preset selects KubeVirt launcher
+pods (`kubevirt.io=virt-launcher`, workload name from `vmi.kubevirt.io/id`,
+`workload_kind="vmi"`) — and reads each pod's cgroup. These numbers include
+the pod's own overhead (for VMs: QEMU, libvirt, sidecars) — attribution, not
+a precise guest-RAM guarantee.
 
 ## Recording rules
 
@@ -116,9 +118,9 @@ used by the platform's virtualization rules.
 | `node:memory_cxl_used:ratio` | slower-tier utilization (absent on nodes without a slower tier, by design) |
 | `node:memory_spilled:ratio` | share of used memory residing below DRAM |
 | `node:memory_pgdemote:rate5m` / `pgpromote:rate5m` | movement rates |
-| `vmi:memory_tier_resident_bytes:sum` | per-VM resident memory by tier |
-| `vmi:memory_spilled:ratio` | per-VM spill fraction |
-| `vmi:memory_pgdemote:rate5m` | per-VM demotion rate |
+| `workload:memory_tier_resident_bytes:sum` | per-workload resident memory by tier |
+| `workload:memory_spilled:ratio` | per-workload spill fraction |
+| `workload:memory_pgdemote:rate5m` | per-workload demotion rate |
 
 ## Alerts
 

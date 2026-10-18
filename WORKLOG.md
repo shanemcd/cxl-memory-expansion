@@ -151,3 +151,29 @@ temporary cluster-monitoring-view binding) were deleted.
 residency enforcement, scheduler-level tier accounting, memory QoS
 integration, guest-visible CXL, an operator/policy CRD, and proactive
 demotion controllers.
+
+## Session 2 — 2026-10-18 (continued), workload generalization
+
+The exporter's per-VM attribution was renamed to per-workload attribution in
+[shanemcd/memory-tier-exporter](https://github.com/shanemcd/memory-tier-exporter)
+(commit `884d0ca`). The measurement core never depended on KubeVirt — only
+discovery and naming did — so the exporter now exposes
+`node_memory_tier_workload_*` series labeled `workload`, `workload_kind`,
+`namespace` and `pod`, with pod discovery configurable via
+`--pod-label-selector`, `--workload-name-label` and `--workload-kind`. The
+KubeVirt preset remains the default (`kubevirt.io=virt-launcher` pods named
+by `vmi.kubevirt.io/id`, `workload_kind="vmi"`), so the default `workload`
+label still joins against `kubevirt_vmi_*` series.
+
+This repository was updated in lockstep (no legacy series are emitted; the
+exporter is pre-adoption): the recording rules
+`vmi:memory_tier_resident_bytes:sum`, `vmi:memory_spilled:ratio` and
+`vmi:memory_pgdemote:rate5m` became `workload:` rules aggregating by
+`(node, workload, workload_kind, namespace)`, the
+`MemoryTierVMHeavilySpilled` alert became
+`MemoryTierWorkloadHeavilySpilled` keyed on `$labels.workload`, and the
+design docs and demo capture tooling reference the new names. The
+descheduler integration is unchanged: it consumes node-level rules
+(`node:memory_dram_anon:ratio`), which were not renamed. Demo-evidence
+snapshots in `demo-evidence/` were recorded before the rename and retain the
+old series names as a historical record.

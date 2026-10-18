@@ -69,21 +69,21 @@ spec:
               memory between tiers; reduce its VM density or investigate the
               workload memory footprint.
 
-        # A single VM keeps a majority of its memory in slower tiers: the
-        # prime candidate for the tier-aware descheduler to relocate.
-        - alert: MemoryTierVMHeavilySpilled
-          expr: vmi:memory_spilled:ratio > 0.50
+        # A single workload keeps a majority of its memory in slower tiers:
+        # the prime candidate for the tier-aware descheduler to relocate.
+        - alert: MemoryTierWorkloadHeavilySpilled
+          expr: workload:memory_spilled:ratio > 0.50
           for: 30m
           labels:
             severity: info
           annotations:
-            summary: VM {{ $labels.namespace }}/{{ $labels.vmi }} mostly on slower tiers
+            summary: Workload {{ $labels.namespace }}/{{ $labels.workload }} mostly on slower tiers
             description: >-
-              More than half of the memory attributed to VM
-              {{ $labels.namespace }}/{{ $labels.vmi }} on node
+              More than half of the memory attributed to workload
+              {{ $labels.namespace }}/{{ $labels.workload }} on node
               {{ $labels.node }} has resided below DRAM for 30 minutes.
-              Consider live-migrating this VM to a node with more DRAM
-              headroom.
+              Consider relocating it to a node with more DRAM headroom
+              (for KubeVirt VMs: live migration).
 
         # The observability loop itself must be healthy for any of the above
         # to mean anything.

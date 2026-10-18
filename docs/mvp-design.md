@@ -138,15 +138,15 @@ visibility.
 Operators ask "which VM is bleeding into CXL?" The kernel exposes
 per-cgroup, per-NUMA-node memory (`memory.numa_stat` in cgroup v2), and each
 VM runs inside a launcher pod whose cgroup the exporter reads via the
-Kubernetes API. The result is per-VM, per-tier attribution:
+Kubernetes API. The result is per-workload, per-tier attribution:
 
 ```text
-node_memory_tier_vm_anon_bytes{namespace="default",vmi="tier-demo",numa_node="1",tier="22",rank="1"} 1.5747072e+08
+node_memory_tier_workload_anon_bytes{namespace="default",workload="tier-demo",workload_kind="vmi",numa_node="1",tier="22",rank="1"} 1.5747072e+08
 ```
 
 Validated end-to-end: a bounded reclaim of the VM's cgroup demoted exactly
 150 MiB of its cold guest memory to CXL while the VM kept running, and the
-per-VM spill ratio and demotion rate were visible in Prometheus seconds
+per-workload spill ratio and demotion rate were visible in Prometheus seconds
 later. These numbers include launcher overhead — attribution for rebalancing
 decisions, not billing-grade accounting; see the
 [observability design](observability-design.md).
@@ -167,7 +167,7 @@ deployed and validated on the lab cluster's platform Prometheus):
 | `node:memory_pgdemote:rate5m` | Demotion throughput per node (pages/s) |
 | `node:memory_pgpromote:rate5m` | Promotion throughput per node |
 | `node:memory_spilled:ratio` | Fraction of a node's used memory residing below DRAM |
-| `vmi:memory_spilled:ratio` | Per-VM fraction of resident memory below DRAM |
+| `workload:memory_spilled:ratio` | Per-workload fraction of resident memory below DRAM |
 
 Naming follows the established `<scope>:<name>:<operation>` convention already
 used by the platform's virtualization recording rules (for example

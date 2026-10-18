@@ -8,8 +8,9 @@ Prometheus-compatible query API in one JSON snapshot:
 - `node:memory_cxl_used:ratio` — slower-tier utilization per node
 - `node:memory_spilled:ratio` — share of used memory below DRAM
 - `node:memory_pgdemote:rate5m` — page demotion rate
-- `vmi:memory_tier_resident_bytes:sum`, `vmi:memory_spilled:ratio`,
-  `vmi:memory_pgdemote:rate5m` — per-VM tier attribution
+- `workload:memory_tier_resident_bytes:sum`, `workload:memory_spilled:ratio`,
+  `workload:memory_pgdemote:rate5m` — per-workload tier attribution
+  (KubeVirt VMs under the default preset)
 
 It expects an OpenShift-style cluster with the recording rules from
 [examples/recording-rules.yaml](../examples/recording-rules.yaml) applied and

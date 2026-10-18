@@ -35,9 +35,9 @@ QUERIES = {
     "spill_ratio": "node:memory_spilled:ratio",
     "pgdemote_rate": "node:memory_pgdemote:rate5m",
     "pgpromote_rate": "node:memory_pgpromote:rate5m",
-    "vm_resident": "vmi:memory_tier_resident_bytes:sum",
-    "vm_spill": "vmi:memory_spilled:ratio",
-    "vm_demote_rate": "vmi:memory_pgdemote:rate5m",
+    "workload_resident": "workload:memory_tier_resident_bytes:sum",
+    "workload_spill": "workload:memory_spilled:ratio",
+    "workload_demote_rate": "workload:memory_pgdemote:rate5m",
     "alerts": 'ALERTS{alertname=~"MemoryTier.*"}',
 }
 

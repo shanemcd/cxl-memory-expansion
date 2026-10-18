@@ -77,26 +77,26 @@ spec:
         - record: node:memory_pgpromote:rate5m
           expr: sum by (node) (rate(node_memory_tier_pgpromote_total{mode="success"}[5m]))
 
-        # --- Per-VM tier attribution ------------------------------------------
-        - record: vmi:memory_tier_resident_bytes:sum
+        # --- Per-workload tier attribution -------------------------------------
+        - record: workload:memory_tier_resident_bytes:sum
           expr: |
-            sum by (node, vmi, namespace, rank) (
-              node_memory_tier_vm_anon_bytes
-              + node_memory_tier_vm_file_bytes
-              + node_memory_tier_vm_shmem_bytes
+            sum by (node, workload, workload_kind, namespace, rank) (
+              node_memory_tier_workload_anon_bytes
+              + node_memory_tier_workload_file_bytes
+              + node_memory_tier_workload_shmem_bytes
             )
-        - record: vmi:memory_spilled:ratio
+        - record: workload:memory_spilled:ratio
           expr: |
-            sum by (node, vmi, namespace) (
-              node_memory_tier_vm_anon_bytes{rank!="0"}
-              + node_memory_tier_vm_file_bytes{rank!="0"}
-              + node_memory_tier_vm_shmem_bytes{rank!="0"}
+            sum by (node, workload, workload_kind, namespace) (
+              node_memory_tier_workload_anon_bytes{rank!="0"}
+              + node_memory_tier_workload_file_bytes{rank!="0"}
+              + node_memory_tier_workload_shmem_bytes{rank!="0"}
             )
             /
-            sum by (node, vmi, namespace) (
-              node_memory_tier_vm_anon_bytes
-              + node_memory_tier_vm_file_bytes
-              + node_memory_tier_vm_shmem_bytes
+            sum by (node, workload, workload_kind, namespace) (
+              node_memory_tier_workload_anon_bytes
+              + node_memory_tier_workload_file_bytes
+              + node_memory_tier_workload_shmem_bytes
             )
-        - record: vmi:memory_pgdemote:rate5m
-          expr: sum by (node, vmi, namespace) (rate(node_memory_tier_vm_pgdemote_total[5m]))
+        - record: workload:memory_pgdemote:rate5m
+          expr: sum by (node, workload, workload_kind, namespace) (rate(node_memory_tier_workload_pgdemote_total[5m]))
