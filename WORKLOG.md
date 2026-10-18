@@ -185,3 +185,22 @@ descheduler integration is unchanged: it consumes node-level rules
 (`node:memory_dram_anon:ratio`), which were not renamed. Demo-evidence
 snapshots in `demo-evidence/` were recorded before the rename and retain the
 old series names as a historical record.
+
+## Session 3 — 2026-10-18 (continued): MemoryPolicy admission governance live
+
+The stock-stack operator plan (no kernel/libvirt/QEMU/KubeVirt patches)
+reached its first verifiable milestone on the lab cluster:
+
+- `memory-tier-operator` (branch `memory-policy-classes`, v8 image) now
+  runs a mutating admission webhook on VMI CREATE in namespaces labeled
+  `memorytiering.shanemcd.com/governed=true` (`cxl-observability` labeled).
+  It resolves the selected MemoryPolicy class and renders it via the
+  stock-spec renderer; TLS from a self-signed CA provisioned by
+  `hack/webhook-certs.sh` (no cert-manager on the lab cluster).
+- Live evidence in `demo-evidence/policy-admission-smoke-test.md`:
+  `tiered` admitted with rendered annotations; `gold-hp` admitted with
+  hugepages-2Mi + Guaranteed shape rendered and honestly Pending on
+  "Insufficient hugepages-2Mi" (node config is the next phase); unknown
+  class denied fail-closed with the resolver's message.
+- Next: Memory Manager Static + node-0-only reservedMemory + 2Mi pool on
+  worker-cxl-0 (NRO), then the dram-only-vs-tiered pressure demo.
