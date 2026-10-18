@@ -98,10 +98,12 @@ absence is visible as missing series — unknown, not zero.
 | `node_memory_tier_workload_anon_bytes` / `workload_file_bytes` / `workload_shmem_bytes` | node, workload, workload_kind, namespace, pod, numa_node, tier, rank | workload pod cgroup `memory.numa_stat` |
 | `node_memory_tier_workload_pgdemote_total` / `workload_pgpromote_total` | node, workload, workload_kind, namespace, pod, mode, numa_node, tier, rank | same, movement rows |
 
-The exporter discovers workload pods through the Kubernetes API — the label
-selector is configurable, and the default preset selects KubeVirt launcher
-pods (`kubevirt.io=virt-launcher`, workload name from `vmi.kubevirt.io/id`,
-`workload_kind="vmi"`) — and reads each pod's cgroup. These numbers include
+The exporter discovers workload pods through the Kubernetes API — a plain
+label selector, defaulting to every pod on the node — and reads each pod's
+cgroup. Workload identity is the pod's controlling owner (for KubeVirt VMs:
+the VirtualMachineInstance, so series carry
+`workload_kind="VirtualMachineInstance"`), falling back to the pod itself
+for ownerless pods. These numbers include
 the pod's own overhead (for VMs: QEMU, libvirt, sidecars) — attribution, not
 a precise guest-RAM guarantee.
 

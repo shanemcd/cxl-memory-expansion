@@ -156,14 +156,22 @@ demotion controllers.
 
 The exporter's per-VM attribution was renamed to per-workload attribution in
 [shanemcd/memory-tier-exporter](https://github.com/shanemcd/memory-tier-exporter)
-(commit `884d0ca`). The measurement core never depended on KubeVirt — only
-discovery and naming did — so the exporter now exposes
-`node_memory_tier_workload_*` series labeled `workload`, `workload_kind`,
-`namespace` and `pod`, with pod discovery configurable via
-`--pod-label-selector`, `--workload-name-label` and `--workload-kind`. The
-KubeVirt preset remains the default (`kubevirt.io=virt-launcher` pods named
-by `vmi.kubevirt.io/id`, `workload_kind="vmi"`), so the default `workload`
-label still joins against `kubevirt_vmi_*` series.
+(commits `884d0ca` and the follow-up described below). The measurement core
+never depended on KubeVirt — only discovery and naming did. After a first
+pass that made discovery configurable through preset-style flags, the
+design was simplified to be completely generic, with no KubeVirt-specific
+configuration at all:
+
+- The exporter exposes `node_memory_tier_workload_*` series labeled
+  `workload`, `workload_kind`, `namespace` and `pod`.
+- Pod discovery is a single `--pod-label-selector` flag, defaulting to every
+  pod on the node.
+- Workload identity is the pod's controlling owner (`ownerReference` with
+  `controller=true`): for KubeVirt VMs the VirtualMachineInstance
+  (`workload_kind="VirtualMachineInstance"`), for StatefulSet/DaemonSet
+  pods their controller, and the pod itself for ownerless pods. Identity is
+  stable across pod restarts, and both launcher pods of a live-migrating
+  VM aggregate under one workload.
 
 This repository was updated in lockstep (no legacy series are emitted; the
 exporter is pre-adoption): the recording rules

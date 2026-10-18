@@ -10,7 +10,7 @@ Prometheus-compatible query API in one JSON snapshot:
 - `node:memory_pgdemote:rate5m` — page demotion rate
 - `workload:memory_tier_resident_bytes:sum`, `workload:memory_spilled:ratio`,
   `workload:memory_pgdemote:rate5m` — per-workload tier attribution
-  (KubeVirt VMs under the default preset)
+  (KubeVirt VMs, controller-owned pods, or any pod on the node)
 
 It expects an OpenShift-style cluster with the recording rules from
 [examples/recording-rules.yaml](../examples/recording-rules.yaml) applied and

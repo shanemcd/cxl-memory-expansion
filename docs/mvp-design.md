@@ -141,7 +141,7 @@ VM runs inside a launcher pod whose cgroup the exporter reads via the
 Kubernetes API. The result is per-workload, per-tier attribution:
 
 ```text
-node_memory_tier_workload_anon_bytes{namespace="default",workload="tier-demo",workload_kind="vmi",numa_node="1",tier="22",rank="1"} 1.5747072e+08
+node_memory_tier_workload_anon_bytes{namespace="default",workload="tier-demo",workload_kind="VirtualMachineInstance",numa_node="1",tier="22",rank="1"} 1.5747072e+08
 ```
 
 Validated end-to-end: a bounded reclaim of the VM's cgroup demoted exactly
