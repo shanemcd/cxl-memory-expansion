@@ -2,7 +2,7 @@
 
 Live-cluster evidence for the stock-components policy stack: two governed
 VMs under a node memory-pressure event on `worker-cxl-0`
-(node0 = 8 GiB DRAM + 2 GiB pinned 2 Mi-hugepage pool, node1 = 4 GiB
+(node0 = 12 GiB DRAM + 2 GiB pinned 2 Mi-hugepage pool, node1 = 4 GiB
 emulated CXL, kernel memory tiering: tier 4 = node0, tier 22 = node1).
 Emulated CXL — this validates software behavior, not device performance.
 
