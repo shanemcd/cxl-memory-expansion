@@ -107,6 +107,13 @@ for ownerless pods. These numbers include
 the pod's own overhead (for VMs: QEMU, libvirt, sidecars) — attribution, not
 a precise guest-RAM guarantee.
 
+VMIs governed by the memory-policy webhook carry two labels that propagate
+to their launcher pods and are visible through kube-state-metrics
+(`kube_pod_labels`): `memorytiering.shanemcd.com/policy-class` (the
+resolved class) and `memorytiering.shanemcd.com/policy-mode`
+(`DRAMOnly`/`Tiered`). The `policy-mode` label is the join key that makes
+the DRAM-only spill alert below workload-selective.
+
 ## Recording rules
 
 Defined in [examples/recording-rules.yaml](../examples/recording-rules.yaml),
@@ -126,8 +133,10 @@ used by the platform's virtualization rules.
 
 ## Alerts
 
-Defined in [examples/alerts.yaml](../examples/alerts.yaml). All five were
-observed reaching `pending` or `firing` states during validation:
+Defined in [examples/alerts.yaml](../examples/alerts.yaml). All were
+observed reaching `pending` or `firing` states during validation (the
+DRAM-only spill alert was observed firing on a workload with spilled
+launcher overhead, then resolving after the workload was replaced):
 
 - `MemoryTierDRAMNearFull` (warning) — DRAM > 90% for 15 minutes: the hot
   set is pressing the planning ceiling.
@@ -135,8 +144,16 @@ observed reaching `pending` or `firing` states during validation:
   30 minutes: expected under overcommit, worth eyeballing.
 - `MemoryTierDemoteChurn` (warning) — sustained demotion > 1000 pages/s:
   the node is cycling memory between tiers.
-- `MemoryTierVMHeavilySpilled` (info) — a VM with > 50% of its memory below
-  DRAM for 30 minutes: the natural descheduler eviction candidate.
+- `MemoryTierWorkloadHeavilySpilled` (info) — a workload with > 50% of its
+  memory below DRAM for 30 minutes: the natural descheduler eviction
+  candidate.
+- `MemoryTierDRAMOnlyWorkloadSpilled` (warning) — a workload governed by a
+  DRAM-only memory policy has *any* attributed memory below DRAM. Joins
+  the spill ratio with the policy-mode label via
+  `label_replace(kube_pod_labels{label_memorytiering_shanemcd_com_policy_mode="DRAMOnly"}, ...)`.
+  For hugepage-backed VMs a nonzero reading means launcher-pod overhead
+  spilled, not guest memory — see
+  [memory policy design](memory-policy-design.md#honest-scope).
 - `MemoryTierExporterDown` (warning) — the observability itself.
 
 Thresholds are starting points; the point of the rules is that operators tune

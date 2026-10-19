@@ -204,3 +204,33 @@ reached its first verifiable milestone on the lab cluster:
   class denied fail-closed with the resolver's message.
 - Next: Memory Manager Static + node-0-only reservedMemory + 2Mi pool on
   worker-cxl-0 (NRO), then the dram-only-vs-tiered pressure demo.
+
+## Session 3 — 2026-10-19, stock-stack policy realization (continued)
+
+The MemoryPolicy contract is now realized end-to-end on the stock stack,
+with the full alert lifecycle demonstrated under real demotion pressure:
+
+- Webhook v10 stamps `policy-class` + `policy-mode` identity labels on
+  governed VMIs (propagating to launcher pods and `kube_pod_labels`), the
+  join key for workload-selective policy alerts.
+- Node config completed: 2 Mi hugepage pool (2 Gi, node-0-only) via a
+  MachineConfig oneshot that re-provisions at every boot; Memory Manager
+  Static with node-0-only reservedMemory (poc-phase0 lineage). DRAMOnly
+  VMs schedule hugepage-backed and stay 100% guest-memory-resident on
+  rank 0.
+- `MemoryTierDRAMOnlyWorkloadSpilled` alert added (spill ratio joined
+  against the policy-mode label). Under an 8 GiB memory-hog pressure
+  event (~2.5 GiB demoted node-wide): tiered VM spilled 8.2% of its cold
+  guest pages; DRAMOnly VM's guest memory never moved (node1 has zero
+  hugepages — structurally undemotable) while its launcher overhead
+  spilled 38–45%, and the alert fired on exactly that workload (0.449)
+  and resolved after replacement. Evidence:
+  `demo-evidence/policy-tiering-pressure-demo.md`.
+- Honest findings recorded: pod-scoped (not guest-scoped) guarantee;
+  recovery is replacement, not promotion (`pgpromote_success` stayed 0 —
+  promotion is access-driven); kernel task_work/signal livelock on the
+  cxltest test kernel during teardown after demotion churn (unkillable
+  launcher, node-reboot recovery; sysrq-t captured).
+- New design doc `docs/memory-policy-design.md`; observability design
+  updated (policy labels, sixth alert); verify.sh all-green after the
+  recovery reboot.

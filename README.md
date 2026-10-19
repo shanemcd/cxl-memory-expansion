@@ -54,6 +54,7 @@ Start anywhere; each document stands alone.
 | [The problem and the principles](docs/problem-and-principles.md) | first principles: density, the performance gradient, why the kernel is the tiering engine, why observe rather than enforce |
 | [MVP design](docs/mvp-design.md) | the four components, the sizing rule, the operating model, success criteria (with what was demonstrated) |
 | [Observability design](docs/observability-design.md) | the metric inventory with sources and status, recording rules, alerts, gaps |
+| [Memory policy design](docs/memory-policy-design.md) | tiered vs dram-only policy classes realized on a stock stack: admission contract, node config, honest scope |
 | [Descheduler design](docs/descheduler-design.md) | tier-aware rebalancing: the one-query integration, deployment, validated migration, deferred refinements |
 | [Scope and alternatives](docs/scope-and-alternatives.md) | everything deliberately not built, and why: DRAM-pinning, scheduler accounting, memory QoS, guest-visible CXL, an operator |
 | [Open questions](docs/open-questions.md) | the honest unknowns, led by physical-hardware validation |

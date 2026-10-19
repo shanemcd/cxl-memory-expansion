@@ -1,0 +1,61 @@
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: '{"apiVersion":"machineconfiguration.openshift.io/v1","kind":"MachineConfig","metadata":{"annotations":{},"creationTimestamp":"2026-10-18T18:17:18Z","generation":1,"labels":{"machineconfiguration.openshift.io/role":"worker-cxl"},"name":"50-memorytier-hugepages-node0","resourceVersion":"1672992","uid":"552cd409-af4b-43a2-a0e8-3b649654d813"},"spec":{"config":{"ignition":{"version":"3.2.0"},"storage":{"files":[{"contents":{"source":"data:,%5BUnit%5D%0ABefore%3Dkubelet.service%0A"},"mode":420,"overwrite":true,"path":"/etc/systemd/system/cxl-region-commit.service.d/10-before-kubelet.conf"}]},"systemd":{"units":[{"contents":"[Unit]\nDescription=Allocate
+      node-0-pinned 2Mi hugepage pool (memory-tier DRAM island)\n# kubelet reads hugepage
+      capacity once at startup; the pool must\n# exist before it does.\nBefore=kubelet.service\nAfter=local-fs.target\n[Service]\nType=oneshot\nRemainAfterExit=yes\nExecStart=/bin/sh
+      -c ''/usr/bin/echo 1024 \u003e /sys/devices/system/node/node0/hugepages/hugepages-2048kB/nr_hugepages
+      \u0026\u0026 /usr/bin/echo \"node0 2Mi pool: $(/usr/bin/cat /sys/devices/system/node/node0/hugepages/hugepages-2048kB/nr_hugepages)
+      pages\"''\n[Install]\nWantedBy=multi-user.target\n","enabled":true,"name":"memorytier-hugepages-node0.service"}]}}}}
+
+      '
+  creationTimestamp: '2026-10-18T18:17:18Z'
+  generation: 2
+  labels:
+    machineconfiguration.openshift.io/role: worker-cxl
+  name: 50-memorytier-hugepages-node0
+  resourceVersion: '1697616'
+  uid: 552cd409-af4b-43a2-a0e8-3b649654d813
+spec:
+  config:
+    ignition:
+      version: 3.2.0
+    storage:
+      files:
+      - contents:
+          source: data:,%5BUnit%5D%0AAfter%3D%0AAfter%3Dbasic.target%0ABefore%3Dkubelet.service%0A
+        mode: 420
+        overwrite: true
+        path: /etc/systemd/system/cxl-region-commit.service.d/10-before-kubelet.conf
+    systemd:
+      units:
+      - contents: '[Unit]
+
+          Description=Allocate node-0-pinned 2Mi hugepage pool (memory-tier DRAM island)
+
+          # kubelet reads hugepage capacity once at startup; the pool must
+
+          # exist before it does.
+
+          Before=kubelet.service
+
+          After=local-fs.target
+
+          [Service]
+
+          Type=oneshot
+
+          RemainAfterExit=yes
+
+          ExecStart=/bin/sh -c ''/usr/bin/echo 1024 > /sys/devices/system/node/node0/hugepages/hugepages-2048kB/nr_hugepages
+          && /usr/bin/echo "node0 2Mi pool: $(/usr/bin/cat /sys/devices/system/node/node0/hugepages/hugepages-2048kB/nr_hugepages)
+          pages"''
+
+          [Install]
+
+          WantedBy=multi-user.target
+
+          '
+        enabled: true
+        name: memorytier-hugepages-node0.service
