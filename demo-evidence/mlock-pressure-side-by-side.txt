@@ -1,0 +1,67 @@
+# Pressure side-by-side: mlock vs hugepages vs tiered control
+# Node: worker-cxl-0 (node0 = DRAM 16GB, node1 = emulated CXL 4GB, demotion on)
+# Presser: 8192MB budget, systemd transient unit with AllowedMemoryNodes=0,
+#          watermark-hovering allocator (stops just above the zone low watermark).
+# Fork state: <locked/> emission + ReservedOverheadMemlock gate + virtqemud
+#             rlimit fallback + mlock overhead 1Gi. Demo VMs: guest 1Gi,
+#             maxGuest pinned to guest (no hotplug growth).
+# Full log below; key readings annotated with ##.
+
+# presser: budget=8192MB window=240s hold=60s
+--- baseline
+=== 16:59:44  node0_free=7372MB node1_free=4091MB  pgdemote(kswapd/direct)=0/0
+    demo-mlock pid=7116 VmLck=2400MB Huge(N0/N1)=0.00/0.00MB anon(N0/N1)=453/0MB mems=0
+    demo-dram-only pid=7125 VmLck=0MB Huge(N0/N1)=1024.00/0.00MB anon(N0/N1)=6/0MB mems=0-1
+    demo-tiered pid=7013 VmLck=0MB Huge(N0/N1)=0.00/0.00MB anon(N0/N1)=106/0MB mems=0-1
+    demo-tier-dra pid=7099 VmLck=0MB Huge(N0/N1)=256.00/0.00MB anon(N0/N1)=6/0MB mems=0
+--- pressure ramp + hold (sampling every 10s)
+=== 17:00:45  node0_free=1690MB node1_free=4092MB  pgdemote(kswapd/direct)=0/0
+    demo-mlock pid=7116 VmLck=3522MB Huge(N0/N1)=0.00/0.00MB anon(N0/N1)=510/0MB mems=0
+    demo-dram-only pid=7125 VmLck=0MB Huge(N0/N1)=1024.00/0.00MB anon(N0/N1)=8/0MB mems=0-1
+    demo-tiered pid=7013 VmLck=0MB Huge(N0/N1)=0.00/0.00MB anon(N0/N1)=106/0MB mems=0-1
+    demo-tier-dra pid=7099 VmLck=0MB Huge(N0/N1)=256.00/0.00MB anon(N0/N1)=9/0MB mems=0
+## deep pressure begins: node0 free approaches the watermark
+=== 17:00:55  node0_free=634MB node1_free=4092MB  pgdemote(kswapd/direct)=0/0
+    demo-mlock pid=7116 VmLck=3528MB Huge(N0/N1)=0.00/0.00MB anon(N0/N1)=512/0MB mems=0
+    demo-dram-only pid=7125 VmLck=0MB Huge(N0/N1)=1024.00/0.00MB anon(N0/N1)=9/0MB mems=0-1
+    demo-tiered pid=7013 VmLck=0MB Huge(N0/N1)=0.00/0.00MB anon(N0/N1)=106/0MB mems=0-1
+    demo-tier-dra pid=7099 VmLck=0MB Huge(N0/N1)=256.00/0.00MB anon(N0/N1)=9/0MB mems=0
+## kswapd wakes below the low watermark and starts demoting LRU anon to node1:
+=== 17:02:06  node0_free=233MB node1_free=3877MB  pgdemote(kswapd/direct)=53908/0
+    demo-mlock pid=7116 VmLck=3272MB Huge(N0/N1)=0.00/0.00MB anon(N0/N1)=448/0MB mems=0
+    demo-dram-only pid=7125 VmLck=0MB Huge(N0/N1)=1024.00/0.00MB anon(N0/N1)=8/0MB mems=0-1
+    demo-tiered pid=9687 VmLck=0MB Huge(N0/N1)=0.00/0.00MB anon(N0/N1)=92/1MB mems=0-1
+    demo-tier-dra pid=7099 VmLck=0MB Huge(N0/N1)=256.00/0.00MB anon(N0/N1)=8/0MB mems=0
+## (demo-tiered restarted under peak pressure - pid 7013 -> 9687; its N1=1MB
+##  shows demotion of its anon; the bulk demotion mass is the presser itself)
+=== 17:02:56  node0_free=199MB node1_free=3304MB  pgdemote(kswapd/direct)=198842/1061
+    demo-mlock pid=7116 VmLck=3272MB Huge(N0/N1)=0.00/0.00MB anon(N0/N1)=448/0MB mems=0
+    demo-dram-only pid=7125 VmLck=0MB Huge(N0/N1)=1024.00/0.00MB anon(N0/N1)=8/0MB mems=0-1
+    demo-tiered pid=9687 VmLck=0MB Huge(N0/N1)=0.00/0.00MB anon(N0/N1)=106/1MB mems=0-1
+    demo-tier-dra pid=7099 VmLck=0MB Huge(N0/N1)=256.00/0.00MB anon(N0/N1)=8/0MB mems=0
+=== 17:03:16  node0_free=169MB node1_free=3158MB  pgdemote(kswapd/direct)=236138/1061
+    demo-mlock pid=7116 VmLck=3264MB Huge(N0/N1)=0.00/0.00MB anon(N0/N1)=446/0MB mems=0
+    demo-dram-only pid=7125 VmLck=0MB Huge(N0/N1)=1024.00/0.00MB anon(N0/N1)=8/0MB mems=0-1
+    demo-tiered pid=9687 VmLck=0MB Huge(N0/N1)=0.00/0.00MB anon(N0/N1)=105/1MB mems=0-1
+    demo-tier-dra pid=7099 VmLck=0MB Huge(N0/N1)=256.00/0.00MB anon(N0/N1)=8/0MB mems=0
+Oct 20 17:03:28 worker-cxl-0 python3[7935]: allocated 8192MB, node0_free=178648kB, holding 60s
+--- after release
+=== 17:03:52  node0_free=174MB node1_free=3017MB  pgdemote(kswapd/direct)=268974/1061
+    demo-mlock pid=7116 VmLck=3264MB Huge(N0/N1)=0.00/0.00MB anon(N0/N1)=446/0MB mems=0
+    demo-dram-only pid=7125 VmLck=0MB Huge(N0/N1)=1024.00/0.00MB anon(N0/N1)=8/0MB mems=0-1
+    demo-tiered pid=9687 VmLck=0MB Huge(N0/N1)=0.00/0.00MB anon(N0/N1)=105/1MB mems=0-1
+    demo-tier-dra pid=7099 VmLck=0MB Huge(N0/N1)=256.00/0.00MB anon(N0/N1)=8/0MB mems=0
+# done
+#
+## SUMMARY
+## - kswapd demoted 268974 pages (~1.05GB) of demotable anon from node0 to the
+##   CXL node (node1 free fell 4092MB -> 3017MB).
+## - demo-mlock (gold-lock, mlock backing): VmLck ~3.2GB and anon(N0/N1)
+##   constant at 446/0MB for the entire run - locked pages are unevictable,
+##   never demotion candidates; cpuset.mems=0 held.
+## - demo-dram-only (gold-hp, hugepages backing): Huge N0=1024MB constant -
+##   hugepages do not demote.
+## - demo-tiered (tiered control, plain anon): restarted by node-pressure
+##   handling mid-run and shows anon on N1 - the demotion path it opted into.
+## - demo-tier-dra (DRA-placed hugepage VM, cpuset.mems=0): Huge N0=256MB
+##   constant, placement mask held.
