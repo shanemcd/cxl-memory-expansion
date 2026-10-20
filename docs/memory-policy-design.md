@@ -24,7 +24,7 @@ performance.
 Policies are cluster-scoped `MemoryPolicy` objects (default implementation:
 [memory-tier-operator](https://github.com/shanemcd/memory-tier-operator),
 branch `memory-policy-classes`): `spec.mode` (Tiered/DRAMOnly), `spec.backing`
-(Hugepages with size, or MemLock), cluster default flag, and namespace
+(Hugepages with size), cluster default flag, and namespace
 allow/forbid/force/default rules. Workloads *select* a class with one
 annotation; they never name mechanisms. The operator's resolver is
 namespace-based authorization, not user-based.
@@ -41,10 +41,6 @@ A mutating admission webhook intercepts VMI CREATE in namespaces labeled
    - *Tiered*: annotations only (`rendered-policy`, `rendered-source`).
    - *DRAMOnly + Hugepages*: `spec.domain.memory.hugepages` (2 Mi) and a
      Guaranteed shape (requests == limits, memory = guest size).
-   - *DRAMOnly + MemLock*: refused unless the operator runs with
-     `--allow-memlock-backing` — KubeVirt 1.9 silently prunes the
-     `reservedOverhead.memLock` field, which would turn a fail-closed
-     contract into a silent no-op.
 3. Stamp identity labels for observability:
    `memorytiering.shanemcd.com/policy-class` and `policy-mode` on the VMI
    (they propagate to launcher pods and to `kube_pod_labels`).
@@ -113,8 +109,10 @@ Enforcement claims are checked, not trusted:
 - **Verify-after-fact, not prevent-by-construction, for overhead**: the
   alert notices spill after it happened; nothing prevents it. That is the
   MVP's observe-and-react philosophy applied to the policy layer.
-- **MemLock backing is disabled by default** on KubeVirt 1.9 (silent
-  pruning); the webhook refuses it rather than pretending.
+- **MemLock backing was removed**: mlock retention worked under pressure
+  but carried a ~1 GiB per-VM accounting tax and an exit-path livelock
+  on locked QEMU teardown (unkillable tasks, node reboot blocked).
+  Hugepages are the only DRAMOnly backing.
 - **Single-node pool**: the demonstration pins the pool to one node with
   a nodeSelector'd demo pair; a fleet version makes pool size and
   placement per-machine-config-pool knobs.

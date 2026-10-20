@@ -4,7 +4,6 @@
 # Runs ON the CXL worker node (as root) while the demo VMs are up.
 # A watermark-aware presser hovers node-0 (DRAM) free memory just above the
 # kernel's low watermark, forcing sustained reclaim+demotion, while showing:
-#   - demo-mlock     (gold-lock class, mlock backing): VmLck + anon stay on node 0
 #   - demo-dram-only (gold-hp class, hugepages backing): Huge pages stay on node 0
 #   - demo-tiered    (tiered class, control): anon pages demote to node 1 (CXL)
 #
@@ -45,7 +44,7 @@ sample() {
   local t=$(date +%T) n0=$(node_free_mb 0) n1=$(node_free_mb 1)
   local ks=$(awk '/pgdemote_kswapd/{print $2}' /proc/vmstat) dr=$(awk '/pgdemote_direct/{print $2}' /proc/vmstat)
   echo "=== $t  node0_free=${n0}MB node1_free=${n1}MB  pgdemote(kswapd/direct)=${ks}/${dr}"
-  for V in demo-mlock demo-dram-only demo-tiered demo-tier-dra; do
+  for V in demo-dram-only demo-tiered demo-tier-dra; do
     local P; P=$(vm_pid "$V") || continue
     local VL=$(( $(awk '/^VmLck/{print $2}' /proc/$P/status) / 1024 ))
     local HS=$(numastat -p "$P" 2>/dev/null | awk '/^Huge/{printf "%s/%s", $2, $3}')
