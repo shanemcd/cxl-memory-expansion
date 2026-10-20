@@ -147,7 +147,9 @@ spec:
       serviceAccountName: tier-descheduler
       containers:
         - name: descheduler
-          image: image-registry.openshift-image-registry.svc:5000/cxl-observability/descheduler:v0.37.0-tlsfix
+          # Upstream PR #1932, commit 64fecb114cf67b911c4fdc388babb85ca8c87b65.
+          # Includes the Prometheus TLS hostname fix; validated with the existing policy.
+          image: image-registry.openshift-image-registry.svc:5000/cxl-observability/descheduler:pr1932-64fecb114
           imagePullPolicy: IfNotPresent
           command: ["/bin/descheduler"]
           args:
