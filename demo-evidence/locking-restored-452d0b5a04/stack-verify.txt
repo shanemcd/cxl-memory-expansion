@@ -1,0 +1,27 @@
+== 1. exporter unit tests
+PASS: go test ./... in memory-tier-exporter
+== 2. exporter DaemonSet
+PASS: memory-tier-exporter ready on 3/3 nodes
+== 3. tier-aware descheduler
+PASS: tier-descheduler available
+== 4. PrometheusRules loaded
+PASS: PrometheusRule memory-tier-recording-rules exists
+PASS: PrometheusRule memory-tier-alerts exists
+== 5. live series from the monitoring API
+PASS: exporter up (3 series)
+PASS: tier nodes (4 series)
+PASS: per-node tier memory (4 series)
+PASS: per-node anon (THP incl) (4 series)
+PASS: demotion counters (9 series)
+PASS: rule: dram used ratio (3 series)
+PASS: rule: dram anon ratio (3 series)
+PASS: rule: cxl used ratio (1 series)
+PASS: rule: spill ratio (1 series)
+PASS: rule: demote rate (3 series)
+PASS: workload attribution (176 series)
+PASS: rule: workload resident (171 series)
+PASS: rule health: workload:memory_spilled:ratio
+PASS: rule: workload demote rate (156 series)
+PASS: alerts defined (1 series)
+
+ALL CHECKS PASSED

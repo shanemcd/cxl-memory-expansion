@@ -1,0 +1,12 @@
+KubeVirt: Deployed mt-locking-452d0b5a04 gates: ['ReservedOverheadMemlock']
+virt-launcher-demo-dram-only-9v592 image-registry.openshift-image-registry.svc:5000/kubevirt/virt-launcher@sha256:d1e94406d69137f99fcd43018f05a49b4513a5f14e4aa9bea29b134192825545
+virt-launcher-demo-tier-dra-hmz5m image-registry.openshift-image-registry.svc:5000/kubevirt/virt-launcher@sha256:d1e94406d69137f99fcd43018f05a49b4513a5f14e4aa9bea29b134192825545
+virt-launcher-demo-tiered-px72c image-registry.openshift-image-registry.svc:5000/kubevirt/virt-launcher@sha256:d1e94406d69137f99fcd43018f05a49b4513a5f14e4aa9bea29b134192825545
+NAME            STATUS   ROLES                         AGE   VERSION
+cxl-master-0    Ready    control-plane,master,worker   33h   v1.37.1
+worker-cxl-0    Ready    worker,worker-cxl             33h   v1.37.1
+worker-dram-0   Ready    worker                        33h   v1.37.1
+NAME             AGE    PHASE     IP            NODENAME       READY
+demo-dram-only   2m1s   Running   10.130.0.22   worker-cxl-0   True
+demo-tier-dra    65s    Running   10.130.0.23   worker-cxl-0   True
+demo-tiered      52s    Running   10.130.0.24   worker-cxl-0   True

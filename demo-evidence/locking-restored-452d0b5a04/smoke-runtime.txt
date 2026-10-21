@@ -1,0 +1,25 @@
+POD=pod/virt-launcher-locking-smoke-zs2cf
+image: image-registry.openshift-image-registry.svc:5000/kubevirt/virt-launcher:mt-locking-452d0b5a04
+resources: {"limits": {"cpu": "1", "devices.kubevirt.io/kvm": "1", "devices.kubevirt.io/tun": "1", "devices.kubevirt.io/vhost-net": "1", "memory": "2438Mi"}, "requests": {"cpu": "1", "devices.kubevirt.io/kvm": "1", "devices.kubevirt.io/tun": "1", "devices.kubevirt.io/vhost-net": "1", "ephemeral-storage": "50M", "memory": "2438Mi"}}
+imageID: image-registry.openshift-image-registry.svc:5000/kubevirt/virt-launcher@sha256:d1e94406d69137f99fcd43018f05a49b4513a5f14e4aa9bea29b134192825545
+error: failed to connect to the hypervisor
+error: internal error: unexpected qemu URI path '/system', try qemu:///session
+command terminated with exit code 1
+  <memoryBacking>
+    <locked/>
+  </memoryBacking>
+  <vcpu placement='static' current='1'>4</vcpu>
+  <vcpus>
+    <vcpu id='0' enabled='yes' hotpluggable='no' order='1'/>
+    <vcpu id='1' enabled='no' hotpluggable='yes'/>
+    <vcpu id='2' enabled='no' hotpluggable='yes'/>
+    <vcpu id='3' enabled='no' hotpluggable='yes'/>
+Warning: Permanently added '192.168.124.20' (ED25519) to the list of known hosts.
+QEMU_PID=258620
+-overcommit mem-lock=on
+State:	S (sleeping)
+VmLck:	 3051864 kB
+VmRSS:	 1523052 kB
+Mems_allowed_list:	0-1
+Max locked memory         unlimited            unlimited            bytes     
+virtualmachineinstance.kubevirt.io "locking-smoke" deleted

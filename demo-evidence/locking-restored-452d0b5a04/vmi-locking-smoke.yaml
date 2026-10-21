@@ -1,0 +1,43 @@
+# Disposable test of the restored KubeVirt locking implementation.
+# Not a DRAM-only policy: no DRA placement claim or hugepages are requested.
+# A full CPU avoids the 100m quota involved in the captured teardown failures.
+apiVersion: kubevirt.io/v1
+kind: VirtualMachineInstance
+metadata:
+  name: locking-smoke
+  namespace: memory-tier-demo
+  annotations:
+    memorytiering.shanemcd.com/policy-class: tiered
+    descheduler.alpha.kubernetes.io/evict: "false"
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: worker-cxl-0
+  terminationGracePeriodSeconds: 10
+  domain:
+    resources:
+      requests:
+        cpu: "1"
+        memory: 1Gi
+      limits:
+        cpu: "1"
+        memory: 1Gi
+    memory:
+      guest: 1Gi
+      maxGuest: 1Gi
+      reservedOverhead:
+        memLock: Required
+    devices:
+      disks:
+        - name: root
+          disk:
+            bus: virtio
+      interfaces:
+        - name: default
+          masquerade: {}
+  networks:
+    - name: default
+      pod: {}
+  volumes:
+    - name: root
+      containerDisk:
+        image: quay.io/containerdisks/fedora:latest
