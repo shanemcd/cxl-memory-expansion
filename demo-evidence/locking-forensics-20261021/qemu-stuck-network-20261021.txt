@@ -1,0 +1,17 @@
+Warning: Permanently added '192.168.124.20' (ED25519) to the list of known hosts.
+lo               UNKNOWN        00:00:00:00:00:00 <LOOPBACK,UP,LOWER_UP> 
+k6t-eth0         UP             2a:c3:72:38:16:b7 <BROADCAST,MULTICAST,UP,LOWER_UP> 
+tap0             UP             2a:c3:72:38:16:b7 <BROADCAST,MULTICAST,UP,LOWER_UP> 
+eth0             DOWN           0a:58:0a:82:00:0a <BROADCAST,NOARP> 
+lo               UNKNOWN        00:00:00:00:00:00 <LOOPBACK,UP,LOWER_UP> 
+k6t-eth0         UP             12:8b:50:cd:5e:43 <BROADCAST,MULTICAST,UP,LOWER_UP> 
+tap0             UP             12:8b:50:cd:5e:43 <BROADCAST,MULTICAST,UP,LOWER_UP> 
+eth0             DOWN           0a:58:0a:82:00:09 <BROADCAST,NOARP> 
+[<0>] task_work_run+0x61/0x90
+[<0>] syscall_exit_to_user_mode+0x17f/0x190
+[<0>] do_syscall_64+0x89/0x160
+[<0>] entry_SYSCALL_64_after_hwframe+0x76/0x7e
+[<0>] task_work_run+0x61/0x90
+[<0>] syscall_exit_to_user_mode+0x17f/0x190
+[<0>] do_syscall_64+0x89/0x160
+[<0>] entry_SYSCALL_64_after_hwframe+0x76/0x7e

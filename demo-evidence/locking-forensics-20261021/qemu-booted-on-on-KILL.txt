@@ -1,0 +1,23 @@
+
+## lock-on-vhost-on-KILL 2026-10-21T12:22:26Z
+pid=109
+State:	S (sleeping)
+VmLck:	 1991940 kB
+VmRSS:	 1342756 kB
+Mems_allowed_list:	0-1
+[[0;32m  OK  [0m] Started [0;1;39mgetty@tty1.service[0m - Getty on tty1.
+[[0;32m  OK  [0m] Started [0;1;39mserial-getty@ttyS0.service[0m - Serial Getty on ttyS0.
+[[0;32m  OK  [0m] Reached target [0;1;39mgetty.target[0m - Login Prompts.
+[[0;32m  OK  [0m] Finished [0;1;39msshd-keygen@rsa.service[0m - OpenSSH rsa Server Key Generation.
+[[0;32m  OK  [0m] Reached target [0;1;39msshd-keygen.target[0m.
+         Starting [0;1;39msshd.service[0m - OpenSSH server daemon...
+[[0;32m  OK  [0m] Started [0;1;39msshd.service[0m - OpenSSH server daemon.
+[[0;32m  OK  [0m] Reached target [0;1;39mmulti-user.target[0m - Multi-User System.
+[!p]104\[0m[?7h[1G[0J[6n[32766;32766H[6n[!p]104\[0m[?7h[1G[0J[6n[32766;32766H[6n]3008;start=06757ecbe1004fed8d8f227b6f8366d1;user=root;hostname=localhost.localdomain;machineid=9ec74802e32243ffbf70d7a2ddc2467b;bootid=4c52345b5e804c5295d10d97d2bcd1c4;pid=928;pidfdid=929;comm=(agetty);servicename=serial-getty@ttyS0.service;invocationid=b4af9e66510a460caf21bce1a656ce9a;type=service\P+q6E616D65\
+Fedora Linux 44 (Cloud Edition)
+Kernel 6.19.10-300.fc44.x86_64 on x86_64 (ttyS0)
+
+Try contacting this VM's SSH server via 'ssh vsock%4294967295' from host.
+
+localhost login: bash: line 29:   109 Killed                  /usr/libexec/qemu-kvm -name "$id" -machine q35 -accel kvm -cpu host -m 1G -smp 1 -nodefaults -display none -monitor none -serial "file:$log" -overcommit "mem-lock=$lock" -drive "file=$base,format=qcow2,if=virtio,snapshot=on" -netdev "tap,id=n0,ifname=testtap,script=no,downscript=no,vhost=$vhost" -device virtio-net-pci,netdev=n0 > "/tmp/$id.stderr" 2>&1
+EXITED

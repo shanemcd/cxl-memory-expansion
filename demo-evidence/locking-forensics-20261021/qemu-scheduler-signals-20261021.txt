@@ -1,0 +1,439 @@
+Warning: Permanently added '192.168.124.20' (ED25519) to the list of known hosts.
+### PID=6990 2026-10-21T12:33:13Z
+6990 (qemu-kvm) R 6643 6989 6989 0 -1 138412416 45195 0 0 0 4041 700 0 0 20 0 10 0 29048 2779815936 27420 18446744073709551615 94016626110464 94016634266749 140730675185440 0 0 256 268444224 4096 16963 0 0 0 17 1 0 0 0 4012 0 94016640979360 94016656144642 94017725677568 140730675191406 140730675195688 140730675195688 140730675195874 9
+State:	R (running)
+SigPnd:	0000000000000100
+ShdPnd:	0000000000000100
+SigBlk:	0000000010002240
+Cpus_allowed_list:	0-3
+voluntary_ctxt_switches:	22005
+nonvoluntary_ctxt_switches:	886
+1328288280 14686631561 22891
+### /sys/fs/cgroup/kubepods.slice/kubepods-pod64872f13_d8e9_4dc0_aa7c_d204de0c8095.slice/crio-b3be0015f4a5d123f379a754e52d47af7bb3777765ea7ffd95e7e448efa0eaf1.scope
+cpu.max
+10000 100000
+cpu.stat
+usage_usec 61896900398
+user_usec 47622424
+system_usec 61849277974
+nice_usec 0
+core_sched.force_idle_usec 0
+nr_periods 648264
+nr_throttled 624568
+throttled_usec 1534338517
+nr_bursts 0
+burst_usec 0
+cpu.weight
+17
+cpuset.cpus.effective
+0-3
+cgroup.freeze
+0
+cgroup.events
+populated 1
+frozen 0
+### /sys/fs/cgroup/kubepods.slice/kubepods-pod64872f13_d8e9_4dc0_aa7c_d204de0c8095.slice
+cpu.max
+12000 100000
+cpu.stat
+usage_usec 61898445499
+user_usec 48128382
+system_usec 61850317116
+nice_usec 0
+core_sched.force_idle_usec 0
+nr_periods 648277
+nr_throttled 622942
+throttled_usec 2008115089
+nr_bursts 0
+burst_usec 0
+cpu.weight
+5
+cpuset.cpus.effective
+0-3
+cgroup.freeze
+0
+cgroup.events
+populated 1
+frozen 0
+### /sys/fs/cgroup/kubepods.slice
+cpu.max
+max 100000
+cpu.stat
+usage_usec 124527361944
+user_usec 1512844462
+system_usec 123014517482
+nice_usec 0
+core_sched.force_idle_usec 0
+nr_periods 0
+nr_throttled 0
+throttled_usec 0
+nr_bursts 0
+burst_usec 0
+cpu.weight
+137
+cpuset.cpus.effective
+0-3
+cgroup.freeze
+0
+cgroup.events
+populated 1
+frozen 0
+### /sys/fs/cgroup
+cpu.max
+cat: /sys/fs/cgroup/cpu.max: No such file or directory
+cpu.stat
+usage_usec 127616200454
+user_usec 2818020312
+system_usec 124798180141
+nice_usec 34458
+core_sched.force_idle_usec 0
+nr_periods 0
+nr_throttled 0
+throttled_usec 0
+nr_bursts 0
+burst_usec 0
+cpu.weight
+cat: /sys/fs/cgroup/cpu.weight: No such file or directory
+cpuset.cpus.effective
+0-3
+cgroup.freeze
+cat: /sys/fs/cgroup/cgroup.freeze: No such file or directory
+cgroup.events
+cat: /sys/fs/cgroup/cgroup.events: No such file or directory
+### PID=6998 2026-10-21T12:33:13Z
+6998 (qemu-kvm) R 6664 6997 6997 0 -1 138412416 45787 0 0 0 5316 894 0 0 20 0 17 0 29057 3312074752 29999 18446744073709551615 94595839008768 94595847165053 140723353064400 0 0 256 268444224 4096 16963 0 0 0 17 1 0 0 0 4766 0 94595853877664 94595869042946 94595973369856 140723353067099 140723353071400 140723353071400 140723353071586 9
+State:	R (running)
+SigPnd:	0000000000000100
+ShdPnd:	0000000000000100
+SigBlk:	0000000010002240
+Cpus_allowed_list:	0-3
+voluntary_ctxt_switches:	23849
+nonvoluntary_ctxt_switches:	1013
+1698302002 12279929557 24862
+### /sys/fs/cgroup/kubepods.slice/kubepods-poda81deeb7_2f75_4f97_aed3_069982667529.slice/crio-4322f911a1cab24a41acf29f16ee4625da63bebe536b30df3f676ea33b15c1ec.scope
+cpu.max
+10000 100000
+cpu.stat
+usage_usec 60676872135
+user_usec 58252332
+system_usec 60618619803
+nice_usec 0
+core_sched.force_idle_usec 0
+nr_periods 648259
+nr_throttled 611382
+throttled_usec 234716140
+nr_bursts 0
+burst_usec 0
+cpu.weight
+17
+cpuset.cpus.effective
+0-3
+cgroup.freeze
+0
+cgroup.events
+populated 1
+frozen 0
+### /sys/fs/cgroup/kubepods.slice/kubepods-poda81deeb7_2f75_4f97_aed3_069982667529.slice
+cpu.max
+12000 100000
+cpu.stat
+usage_usec 60678467072
+user_usec 59103119
+system_usec 60619363952
+nice_usec 0
+core_sched.force_idle_usec 0
+nr_periods 648266
+nr_throttled 609752
+throttled_usec 13428465
+nr_bursts 0
+burst_usec 0
+cpu.weight
+5
+cpuset.cpus.effective
+0-3
+cgroup.freeze
+0
+cgroup.events
+populated 1
+frozen 0
+### /sys/fs/cgroup/kubepods.slice
+cpu.max
+max 100000
+cpu.stat
+usage_usec 124527416918
+user_usec 1512844467
+system_usec 123014572450
+nice_usec 0
+core_sched.force_idle_usec 0
+nr_periods 0
+nr_throttled 0
+throttled_usec 0
+nr_bursts 0
+burst_usec 0
+cpu.weight
+137
+cpuset.cpus.effective
+0-3
+cgroup.freeze
+0
+cgroup.events
+populated 1
+frozen 0
+### /sys/fs/cgroup
+cpu.max
+cat: /sys/fs/cgroup/cpu.max: No such file or directory
+cpu.stat
+usage_usec 127616286956
+user_usec 2818027124
+system_usec 124798259831
+nice_usec 34458
+core_sched.force_idle_usec 0
+nr_periods 0
+nr_throttled 0
+throttled_usec 0
+nr_bursts 0
+burst_usec 0
+cpu.weight
+cat: /sys/fs/cgroup/cpu.weight: No such file or directory
+cpuset.cpus.effective
+0-3
+cgroup.freeze
+cat: /sys/fs/cgroup/cgroup.freeze: No such file or directory
+cgroup.events
+cat: /sys/fs/cgroup/cgroup.events: No such file or directory
+### PID=7002 2026-10-21T12:33:13Z
+7002 (vhost-6990) R 2 0 0 0 -1 2129984 0 0 0 0 0 6184341 0 0 20 0 1 0 29059 0 0 18446744073709551615 0 0 0 0 0 0 0 2147483647 0 0 0 0 17 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+State:	R (running)
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+SigBlk:	0000000000000000
+Cpus_allowed_list:	0-3
+voluntary_ctxt_switches:	2424
+nonvoluntary_ctxt_switches:	753697
+61843414013630 46543452389 756122
+### /sys/fs/cgroup/kubepods.slice/kubepods-pod64872f13_d8e9_4dc0_aa7c_d204de0c8095.slice/crio-b3be0015f4a5d123f379a754e52d47af7bb3777765ea7ffd95e7e448efa0eaf1.scope
+cpu.max
+10000 100000
+cpu.stat
+usage_usec 61896957007
+user_usec 47622424
+system_usec 61849334582
+nice_usec 0
+core_sched.force_idle_usec 0
+nr_periods 648265
+nr_throttled 624569
+throttled_usec 1534338517
+nr_bursts 0
+burst_usec 0
+cpu.weight
+17
+cpuset.cpus.effective
+0-3
+cgroup.freeze
+0
+cgroup.events
+populated 1
+frozen 0
+### /sys/fs/cgroup/kubepods.slice/kubepods-pod64872f13_d8e9_4dc0_aa7c_d204de0c8095.slice
+cpu.max
+12000 100000
+cpu.stat
+usage_usec 61898502127
+user_usec 48128382
+system_usec 61850373745
+nice_usec 0
+core_sched.force_idle_usec 0
+nr_periods 648278
+nr_throttled 622943
+throttled_usec 2008115089
+nr_bursts 0
+burst_usec 0
+cpu.weight
+5
+cpuset.cpus.effective
+0-3
+cgroup.freeze
+0
+cgroup.events
+populated 1
+frozen 0
+### /sys/fs/cgroup/kubepods.slice
+cpu.max
+max 100000
+cpu.stat
+usage_usec 124527475447
+user_usec 1512844467
+system_usec 123014630979
+nice_usec 0
+core_sched.force_idle_usec 0
+nr_periods 0
+nr_throttled 0
+throttled_usec 0
+nr_bursts 0
+burst_usec 0
+cpu.weight
+137
+cpuset.cpus.effective
+0-3
+cgroup.freeze
+0
+cgroup.events
+populated 1
+frozen 0
+### /sys/fs/cgroup
+cpu.max
+cat: /sys/fs/cgroup/cpu.max: No such file or directory
+cpu.stat
+usage_usec 127616374535
+user_usec 2818036711
+system_usec 124798337824
+nice_usec 34458
+core_sched.force_idle_usec 0
+nr_periods 0
+nr_throttled 0
+throttled_usec 0
+nr_bursts 0
+burst_usec 0
+cpu.weight
+cat: /sys/fs/cgroup/cpu.weight: No such file or directory
+cpuset.cpus.effective
+0-3
+cgroup.freeze
+cat: /sys/fs/cgroup/cgroup.freeze: No such file or directory
+cgroup.events
+cat: /sys/fs/cgroup/cgroup.events: No such file or directory
+### PID=7007 2026-10-21T12:33:13Z
+7007 (vhost-6998) R 2 0 0 0 -1 2129984 0 0 0 0 0 6060598 0 0 20 0 1 0 29077 0 0 18446744073709551615 0 0 0 0 0 0 0 2147483647 0 0 0 0 17 2 0 0 0 0 0 0 0 0 0 0 0 0 0
+State:	R (running)
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+SigBlk:	0000000000000000
+Cpus_allowed_list:	0-3
+voluntary_ctxt_switches:	1610
+nonvoluntary_ctxt_switches:	70913
+60605982780426 2713783188 72524
+### /sys/fs/cgroup/kubepods.slice/kubepods-poda81deeb7_2f75_4f97_aed3_069982667529.slice/crio-4322f911a1cab24a41acf29f16ee4625da63bebe536b30df3f676ea33b15c1ec.scope
+cpu.max
+10000 100000
+cpu.stat
+usage_usec 60676928586
+user_usec 58252332
+system_usec 60618676254
+nice_usec 0
+core_sched.force_idle_usec 0
+nr_periods 648260
+nr_throttled 611383
+throttled_usec 234716140
+nr_bursts 0
+burst_usec 0
+cpu.weight
+17
+cpuset.cpus.effective
+0-3
+cgroup.freeze
+0
+cgroup.events
+populated 1
+frozen 0
+### /sys/fs/cgroup/kubepods.slice/kubepods-poda81deeb7_2f75_4f97_aed3_069982667529.slice
+cpu.max
+12000 100000
+cpu.stat
+usage_usec 60678523542
+user_usec 59103119
+system_usec 60619420422
+nice_usec 0
+core_sched.force_idle_usec 0
+nr_periods 648267
+nr_throttled 609753
+throttled_usec 13428465
+nr_bursts 0
+burst_usec 0
+cpu.weight
+5
+cpuset.cpus.effective
+0-3
+cgroup.freeze
+0
+cgroup.events
+populated 1
+frozen 0
+### /sys/fs/cgroup/kubepods.slice
+cpu.max
+max 100000
+cpu.stat
+usage_usec 124527529274
+user_usec 1512844470
+system_usec 123014684804
+nice_usec 0
+core_sched.force_idle_usec 0
+nr_periods 0
+nr_throttled 0
+throttled_usec 0
+nr_bursts 0
+burst_usec 0
+cpu.weight
+137
+cpuset.cpus.effective
+0-3
+cgroup.freeze
+0
+cgroup.events
+populated 1
+frozen 0
+### /sys/fs/cgroup
+cpu.max
+cat: /sys/fs/cgroup/cpu.max: No such file or directory
+cpu.stat
+usage_usec 127616456264
+user_usec 2818044548
+system_usec 124798411716
+nice_usec 34458
+core_sched.force_idle_usec 0
+nr_periods 0
+nr_throttled 0
+throttled_usec 0
+nr_bursts 0
+burst_usec 0
+cpu.weight
+cat: /sys/fs/cgroup/cpu.weight: No such file or directory
+cpuset.cpus.effective
+0-3
+cgroup.freeze
+cat: /sys/fs/cgroup/cgroup.freeze: No such file or directory
+cgroup.events
+cat: /sys/fs/cgroup/cgroup.events: No such file or directory
+kill pid=6990 result=0
+kill pid=6998 result=0
+### AFTER 6990
+6990 (qemu-kvm) R 6643 6989 6989 0 -1 138412416 45195 0 0 0 4041 700 0 0 20 0 10 0 29048 2779815936 27420 18446744073709551615 94016626110464 94016634266749 140730675185440 0 0 256 268444224 4096 16963 0 0 0 17 1 0 0 0 4012 0 94016640979360 94016656144642 94017725677568 140730675191406 140730675195688 140730675195688 140730675195874 9
+State:	R (running)
+SigPnd:	0000000000000100
+ShdPnd:	0000000000000100
+voluntary_ctxt_switches:	22005
+nonvoluntary_ctxt_switches:	886
+1328288280 14686631561 22891
+### AFTER 6998
+6998 (qemu-kvm) R 6664 6997 6997 0 -1 138412416 45787 0 0 0 5316 894 0 0 20 0 17 0 29057 3312074752 29999 18446744073709551615 94595839008768 94595847165053 140723353064400 0 0 256 268444224 4096 16963 0 0 0 17 1 0 0 0 4766 0 94595853877664 94595869042946 94595973369856 140723353067099 140723353071400 140723353071400 140723353071586 9
+State:	R (running)
+SigPnd:	0000000000000100
+ShdPnd:	0000000000000100
+voluntary_ctxt_switches:	23849
+nonvoluntary_ctxt_switches:	1013
+1698302002 12279929557 24862
+### AFTER 7002
+7002 (vhost-6990) R 2 0 0 0 -1 2129984 0 0 0 0 0 6184545 0 0 20 0 1 0 29059 0 0 18446744073709551615 0 0 0 0 0 0 0 2147483647 0 0 0 0 17 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+State:	R (running)
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+voluntary_ctxt_switches:	2424
+nonvoluntary_ctxt_switches:	753728
+61845453287860 46548301527 756153
+### AFTER 7007
+7007 (vhost-6998) R 2 0 0 0 -1 2129984 0 0 0 0 0 6060799 0 0 20 0 1 0 29077 0 0 18446744073709551615 0 0 0 0 0 0 0 2147483647 0 0 0 0 17 2 0 0 0 0 0 0 0 0 0 0 0 0 0
+State:	R (running)
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+voluntary_ctxt_switches:	1610
+nonvoluntary_ctxt_switches:	70916
+60607999682421 2713820568 72527

@@ -1,0 +1,9 @@
+Wed Oct 21 12:31:21 PM UTC 2026
+Domain 'forensic-libvirt-locked' destroyed
+
+ Id   Name   State
+--------------------
+
+2026-10-21 12:30:58.233+0000: 266: info : libvirt version: 11.10.0, package: 19.el9 (builder@centos.org, 2026-08-31-14:05:24, )
+2026-10-21 12:30:58.233+0000: 266: info : hostname: qemu-locking-forensics
+2026-10-21 12:30:58.233+0000: 266: error : virCgroupDetectControllers:451 : At least one cgroup controller is required: No such device or address

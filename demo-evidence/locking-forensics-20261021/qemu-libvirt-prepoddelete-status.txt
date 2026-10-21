@@ -1,0 +1,7 @@
+Warning: Permanently added '192.168.124.20' (ED25519) to the list of known hosts.
+PID=253369
+State:	S (sleeping)
+VmLck:	 1495316 kB
+VmRSS:	 1249648 kB
+Mems_allowed_list:	0-1
+0::/kubepods.slice/kubepods-burstable.slice/kubepods-burstable-poddd726e4d_6b1c_4de2_8480_8ce4c074e95c.slice/crio-f60d0cc21b67127c1fa153f52b20988b8b72c13ef501b30385a2abca44c76a88.scope

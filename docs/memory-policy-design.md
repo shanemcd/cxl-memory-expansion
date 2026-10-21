@@ -109,18 +109,11 @@ Enforcement claims are checked, not trusted:
 - **Verify-after-fact, not prevent-by-construction, for overhead**: the
   alert notices spill after it happened; nothing prevents it. That is the
   MVP's observe-and-react philosophy applied to the policy layer.
-- **MemLock backing was removed**: mlock retention worked under pressure
-  but carried a ~1 GiB per-VM accounting tax and an exit-path livelock
-  on locked QEMU teardown (unkillable tasks, node reboot blocked).
-  Hugepages are the only DRAMOnly backing.
+- **MemLock backing was removed**: mlock retention worked under pressure, but the implementation was removed after accounting problems and an unresolved teardown failure. The extra launcher allowance was empirical, not an isolated measurement of locking's cost. Subsequent tests found similar teardown symptoms with locking disabled and successful exits in new locked controls. Hugepages remain the only deployed DRAMOnly backing. See the [forensic investigation](../demo-evidence/locking-forensics-20261021/).
 - **Single-node pool**: the demonstration pins the pool to one node with
   a nodeSelector'd demo pair; a fleet version makes pool size and
   placement per-machine-config-pool knobs.
-- **Kernel livelock finding**: during teardown immediately after heavy
-  demotion churn, the test kernel (6.12.0-211.64.1.cxltest.el10) hit a
-  task_work/signal-delivery livelock that made launcher containers
-  unkillable until reboot. Recorded in the pressure-demo evidence; a
-  finding against the test kernel, not against this stack.
+- **Unresolved teardown failure**: on the test kernel (6.12.0-211.64.1.cxltest.el10), two non-mlocked QEMUs remained runnable with SIGKILL pending while vhost receive workers consumed CPU. Lifting the compute-container CPU quota let both exit without reboot. The exact kernel defect remains unresolved; earlier explanations involving locked-page unmapping or memory reclaim were not established by kernel captures. See the [scheduler and kernel evidence](../demo-evidence/locking-forensics-20261021/).
 
 ## Relationship to what was rejected
 

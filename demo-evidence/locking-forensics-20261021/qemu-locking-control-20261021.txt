@@ -1,0 +1,44 @@
+
+## lock=off teardown=TERM time=2026-10-21T12:19:35Z
+pid=23
+State:	S (sleeping)
+VmLck:	       0 kB
+VmRSS:	   35820 kB
+Mems_allowed_list:	0-1
+20553728
+4294967296
+EXITED
+qemu-kvm: terminating on signal 15 from pid 21 (bash)
+
+## lock=off teardown=KILL time=2026-10-21T12:19:39Z
+pid=33
+State:	S (sleeping)
+VmLck:	       0 kB
+VmRSS:	   35916 kB
+Mems_allowed_list:	0-1
+21204992
+4294967296
+EXITED
+bash: line 21:    33 Killed                  /usr/libexec/qemu-kvm -name "locking-control-$lock-$method" -machine q35 -accel kvm -cpu host -m 1G -S -nodefaults -display none -monitor none -serial none -net none -overcommit "mem-lock=$lock" > "/tmp/qemu-$lock-$method.log" 2>&1
+
+## lock=on teardown=TERM time=2026-10-21T12:19:43Z
+pid=43
+State:	S (sleeping)
+VmLck:	 1306172 kB
+VmRSS:	 1175292 kB
+Mems_allowed_list:	0-1
+1151279104
+4294967296
+EXITED
+qemu-kvm: terminating on signal 15 from pid 21 (bash)
+
+## lock=on teardown=KILL time=2026-10-21T12:19:47Z
+pid=53
+State:	S (sleeping)
+VmLck:	 1306172 kB
+VmRSS:	 1175292 kB
+Mems_allowed_list:	0-1
+1151287296
+4294967296
+bash: line 21:    53 Killed                  /usr/libexec/qemu-kvm -name "locking-control-$lock-$method" -machine q35 -accel kvm -cpu host -m 1G -S -nodefaults -display none -monitor none -serial none -net none -overcommit "mem-lock=$lock" > "/tmp/qemu-$lock-$method.log" 2>&1
+EXITED

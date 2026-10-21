@@ -1,0 +1,60 @@
+Warning: Permanently added '192.168.124.20' (ED25519) to the list of known hosts.
+Wed Oct 21 12:33:41 UTC 2026
+BEFORE /sys/fs/cgroup/kubepods.slice/kubepods-pod64872f13_d8e9_4dc0_aa7c_d204de0c8095.slice
+12000 100000
+usage_usec 61926120918
+user_usec 48128382
+system_usec 61877992536
+nice_usec 0
+core_sched.force_idle_usec 0
+nr_periods 648556
+nr_throttled 623221
+throttled_usec 2008115089
+nr_bursts 0
+burst_usec 0
+BEFORE /sys/fs/cgroup/kubepods.slice/kubepods-pod64872f13_d8e9_4dc0_aa7c_d204de0c8095.slice/crio-b3be0015f4a5d123f379a754e52d47af7bb3777765ea7ffd95e7e448efa0eaf1.scope
+10000 100000
+usage_usec 61924582759
+user_usec 47622424
+system_usec 61876960334
+nice_usec 0
+core_sched.force_idle_usec 0
+nr_periods 648543
+nr_throttled 624847
+throttled_usec 1534338517
+nr_bursts 0
+burst_usec 0
+Wed Oct 21 12:33:41 UTC 2026
+    PID STAT     TIME COMMAND
+   6990 Zl   00:00:47 qemu-kvm
+   6998 Rl   00:01:02 qemu-kvm
+   7007 R    16:50:33 vhost-6998
+Wed Oct 21 12:33:42 UTC 2026
+    PID STAT     TIME COMMAND
+   6998 Rl   00:01:02 qemu-kvm
+   7007 R    16:50:34 vhost-6998
+Wed Oct 21 12:33:43 UTC 2026
+    PID STAT     TIME COMMAND
+   6998 Rl   00:01:02 qemu-kvm
+   7007 R    16:50:35 vhost-6998
+Wed Oct 21 12:33:44 UTC 2026
+    PID STAT     TIME COMMAND
+   6998 Rl   00:01:02 qemu-kvm
+   7007 R    16:50:36 vhost-6998
+Wed Oct 21 12:33:45 UTC 2026
+    PID STAT     TIME COMMAND
+   6998 Rl   00:01:02 qemu-kvm
+   7007 R    16:50:37 vhost-6998
+AFTER /sys/fs/cgroup/kubepods.slice/kubepods-pod64872f13_d8e9_4dc0_aa7c_d204de0c8095.slice
+12000 100000
+usage_usec 61926185836
+user_usec 48128382
+system_usec 61878057454
+nice_usec 0
+core_sched.force_idle_usec 0
+nr_periods 648558
+nr_throttled 623221
+throttled_usec 223487545222
+nr_bursts 0
+burst_usec 0
+AFTER /sys/fs/cgroup/kubepods.slice/kubepods-pod64872f13_d8e9_4dc0_aa7c_d204de0c8095.slice/crio-b3be0015f4a5d123f379a754e52d47af7bb3777765ea7ffd95e7e448efa0eaf1.scope

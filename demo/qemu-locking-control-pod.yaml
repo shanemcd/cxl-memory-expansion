@@ -1,0 +1,27 @@
+# Diagnostic sandbox only: direct QEMU tests, not a VM deployment example.
+# Apply in kubevirt, where privileged admission and image-pull permissions exist.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: qemu-locking-forensics
+  namespace: kubevirt
+  labels:
+    app: qemu-locking-forensics
+spec:
+  serviceAccountName: kubevirt-handler
+  restartPolicy: Never
+  nodeSelector:
+    kubernetes.io/hostname: worker-cxl-0
+  containers:
+    - name: qemu
+      image: image-registry.openshift-image-registry.svc:5000/kubevirt/virt-launcher:mt
+      command: ["/bin/bash", "-c", "ulimit -l unlimited; exec sleep infinity"]
+      securityContext:
+        privileged: true
+        runAsUser: 0
+      resources:
+        requests:
+          cpu: 100m
+          memory: 512Mi
+        limits:
+          memory: 4Gi

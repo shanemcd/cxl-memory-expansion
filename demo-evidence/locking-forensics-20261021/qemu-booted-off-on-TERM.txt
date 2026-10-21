@@ -1,0 +1,23 @@
+
+## lock-off-vhost-on-TERM 2026-10-21T12:23:07Z
+pid=131
+State:	S (sleeping)
+VmLck:	       0 kB
+VmRSS:	  489156 kB
+Mems_allowed_list:	0-1
+         Starting [0;1;39msystemd-user-sessions.service[0m - Permit User Sessions...
+[[0;32m  OK  [0m] Started [0;1;39msshd.service[0m - OpenSSH server daemon.
+[[0;32m  OK  [0m] Started [0;1;39mNetworkManager-dispatcher.…[0m Manager Script Dispatcher Service.
+[[0;32m  OK  [0m] Finished [0;1;39msystemd-user-sessions.service[0m - Permit User Sessions.
+[[0;32m  OK  [0m] Started [0;1;39mgetty@tty1.service[0m - Getty on tty1.
+[[0;32m  OK  [0m] Started [0;1;39mserial-getty@ttyS0.service[0m - Serial Getty on ttyS0.
+[[0;32m  OK  [0m] Reached target [0;1;39mgetty.target[0m - Login Prompts.
+[[0;32m  OK  [0m] Reached target [0;1;39mmulti-user.target[0m - Multi-User System.
+[!p]104\[0m[?7h[1G[0J[6n[32766;32766H[6n[!p]104\[0m[?7h[1G[0J[6n[32766;32766H[6n]3008;start=35e1be7c74c74fc68ff740e9ff17808d;user=root;hostname=localhost.localdomain;machineid=17463d36770e4dcdb827adb12944b6ea;bootid=345e974bc7334d79a9225f6158bcea82;pid=939;pidfdid=940;comm=(agetty);servicename=serial-getty@ttyS0.service;invocationid=2e59f10a569b4c408f12950441002596;type=service\P+q6E616D65\
+Fedora Linux 44 (Cloud Edition)
+Kernel 6.19.10-300.fc44.x86_64 on x86_64 (ttyS0)
+
+Try contacting this VM's SSH server via 'ssh vsock%4294967295' from host.
+
+localhost login: EXITED
+qemu-kvm: terminating on signal 15 from pid 127 (bash)

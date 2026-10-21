@@ -1,0 +1,123 @@
+Warning: Permanently added '192.168.124.20' (ED25519) to the list of known hosts.
+Oct 21 12:17:51 worker-cxl-0 kernel: sysrq: Show backtrace of all active CPUs
+Oct 21 12:17:51 worker-cxl-0 kernel: NMI backtrace for cpu 1
+Oct 21 12:17:51 worker-cxl-0 kernel: CPU: 1 UID: 0 PID: 249150 Comm: sh Not tainted 6.12.0-211.64.1.cxltest.el10.x86_64 #1 PREEMPT(voluntary) 
+Oct 21 12:17:51 worker-cxl-0 kernel: Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+Oct 21 12:17:51 worker-cxl-0 kernel: Call Trace:
+Oct 21 12:17:51 worker-cxl-0 kernel:  <TASK>
+Oct 21 12:17:51 worker-cxl-0 kernel:  dump_stack_lvl+0x4e/0x70
+Oct 21 12:17:51 worker-cxl-0 kernel:  nmi_cpu_backtrace.cold+0x19/0x63
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? __pfx_nmi_raise_cpu_backtrace+0x10/0x10
+Oct 21 12:17:51 worker-cxl-0 kernel:  nmi_trigger_cpumask_backtrace+0xed/0x100
+Oct 21 12:17:51 worker-cxl-0 kernel:  __handle_sysrq.cold+0x9c/0xe6
+Oct 21 12:17:51 worker-cxl-0 kernel:  write_sysrq_trigger+0x59/0xa0
+Oct 21 12:17:51 worker-cxl-0 kernel:  proc_reg_write+0x57/0xa0
+Oct 21 12:17:51 worker-cxl-0 kernel:  vfs_write+0xf5/0x450
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? next_uptodate_folio+0x89/0x2a0
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? avc_has_perm_noaudit+0x69/0xf0
+Oct 21 12:17:51 worker-cxl-0 kernel:  ksys_write+0x6d/0xf0
+Oct 21 12:17:51 worker-cxl-0 kernel:  do_syscall_64+0x7d/0x160
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? __do_sys_newfstat+0x68/0x70
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? syscall_exit_work+0xf3/0x120
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? syscall_exit_to_user_mode+0x32/0x190
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? do_syscall_64+0x89/0x160
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? syscall_exit_to_user_mode+0x32/0x190
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? do_syscall_64+0x89/0x160
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? do_user_addr_fault+0x606/0x830
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? exc_page_fault+0x7f/0x150
+Oct 21 12:17:51 worker-cxl-0 kernel:  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+Oct 21 12:17:51 worker-cxl-0 kernel: RIP: 0033:0x7fa2cc7d9884
+Oct 21 12:17:51 worker-cxl-0 kernel: Code: 89 02 b8 ff ff ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40 00 f3 0f 1e fa 80 3d 65 c8 0d 00 00 74 13 b8 01 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 54 c3 0f 1f 00 48 83 ec 28 48 89 54 24 18 48
+Oct 21 12:17:51 worker-cxl-0 kernel: RSP: 002b:00007ffc600b9828 EFLAGS: 00000202 ORIG_RAX: 0000000000000001
+Oct 21 12:17:51 worker-cxl-0 kernel: RAX: ffffffffffffffda RBX: 00007fa2cc8af5c0 RCX: 00007fa2cc7d9884
+Oct 21 12:17:51 worker-cxl-0 kernel: RDX: 0000000000000002 RSI: 00005640634c4950 RDI: 0000000000000001
+Oct 21 12:17:51 worker-cxl-0 kernel: RBP: 0000000000000002 R08: 0000000000000001 R09: 0000000000000001
+Oct 21 12:17:51 worker-cxl-0 kernel: R10: 000000000000003f R11: 0000000000000202 R12: 0000000000000002
+Oct 21 12:17:51 worker-cxl-0 kernel: R13: 00005640634c4950 R14: 0000000000000002 R15: 00007fa2cc8acf00
+Oct 21 12:17:51 worker-cxl-0 kernel:  </TASK>
+Oct 21 12:17:51 worker-cxl-0 kernel: Sending NMI from CPU 1 to CPUs 0,2-3:
+Oct 21 12:17:51 worker-cxl-0 kernel: NMI backtrace for cpu 0
+Oct 21 12:17:51 worker-cxl-0 kernel: CPU: 0 UID: 0 PID: 7002 Comm: vhost-6990 Not tainted 6.12.0-211.64.1.cxltest.el10.x86_64 #1 PREEMPT(voluntary) 
+Oct 21 12:17:51 worker-cxl-0 kernel: Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+Oct 21 12:17:51 worker-cxl-0 kernel: RIP: 0010:vhost_get_vq_desc+0xb/0x4b0 [vhost]
+Oct 21 12:17:51 worker-cxl-0 kernel: Code: f8 4e f6 8b 44 24 04 eb b7 66 0f 1f 44 00 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa 0f 1f 44 00 00 41 57 <41> 56 41 55 49 89 fd 41 54 49 89 cc 55 4c 89 c5 53 48 83 ec 48 0f
+Oct 21 12:17:51 worker-cxl-0 kernel: RSP: 0018:ffffd4a302c83cb8 EFLAGS: 00000212
+Oct 21 12:17:51 worker-cxl-0 kernel: RAX: ffff8f17d2100210 RBX: 0000000000000001 RCX: ffffd4a302c83d00
+Oct 21 12:17:51 worker-cxl-0 kernel: RDX: 00000000000003ff RSI: ffff8f17d2100220 RDI: ffff8f17d21000c0
+Oct 21 12:17:51 worker-cxl-0 kernel: RBP: ffff8f17d21000c0 R08: ffffd4a302c83d04 R09: 0000000000000000
+Oct 21 12:17:51 worker-cxl-0 kernel: R10: 0000000000000001 R11: 000000000fdf29f0 R12: ffff8f191ea5c008
+Oct 21 12:17:51 worker-cxl-0 kernel: R13: 0000000000000016 R14: 0000000000000010 R15: 0000000000000001
+Oct 21 12:17:51 worker-cxl-0 kernel: FS:  0000000000000000(0000) GS:ffff8f1b2fc00000(0000) knlGS:0000000000000000
+Oct 21 12:17:51 worker-cxl-0 kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+Oct 21 12:17:51 worker-cxl-0 kernel: CR2: 00007fece52fad58 CR3: 000000025ead6000 CR4: 0000000000f50ef0
+Oct 21 12:17:51 worker-cxl-0 kernel: PKRU: 55555554
+Oct 21 12:17:51 worker-cxl-0 kernel: Call Trace:
+Oct 21 12:17:51 worker-cxl-0 kernel:  <NMI>
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? show_trace_log_lvl+0x1b0/0x2f0
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? show_trace_log_lvl+0x1b0/0x2f0
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? get_rx_bufs+0xa9/0x240 [vhost_net]
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? nmi_cpu_backtrace.cold+0x32/0x63
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? nmi_cpu_backtrace_handler+0x11/0x20
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? nmi_handle.part.0+0x56/0x110
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? default_do_nmi+0x127/0x180
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? exc_nmi+0x106/0x180
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? end_repeat_nmi+0xf/0x53
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? vhost_get_vq_desc+0xb/0x4b0 [vhost]
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? vhost_get_vq_desc+0xb/0x4b0 [vhost]
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? vhost_get_vq_desc+0xb/0x4b0 [vhost]
+Oct 21 12:17:51 worker-cxl-0 kernel:  </NMI>
+Oct 21 12:17:51 worker-cxl-0 kernel:  <TASK>
+Oct 21 12:17:51 worker-cxl-0 kernel:  get_rx_bufs+0xa9/0x240 [vhost_net]
+Oct 21 12:17:51 worker-cxl-0 kernel:  handle_rx+0x243/0x7b0 [vhost_net]
+Oct 21 12:17:51 worker-cxl-0 kernel:  vhost_run_work_kthread_list+0x7f/0xf0 [vhost]
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? __pfx_vhost_run_work_kthread_list+0x10/0x10 [vhost]
+Oct 21 12:17:51 worker-cxl-0 kernel:  kthread+0xfa/0x240
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? __pfx_kthread+0x10/0x10
+Oct 21 12:17:51 worker-cxl-0 kernel:  ret_from_fork+0x31/0x50
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? __pfx_kthread+0x10/0x10
+Oct 21 12:17:51 worker-cxl-0 kernel:  ret_from_fork_asm+0x1a/0x30
+Oct 21 12:17:51 worker-cxl-0 kernel:  </TASK>
+Oct 21 12:17:51 worker-cxl-0 kernel: NMI backtrace for cpu 2
+Oct 21 12:17:51 worker-cxl-0 kernel: CPU: 2 UID: 0 PID: 7007 Comm: vhost-6998 Not tainted 6.12.0-211.64.1.cxltest.el10.x86_64 #1 PREEMPT(voluntary) 
+Oct 21 12:17:51 worker-cxl-0 kernel: Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+Oct 21 12:17:51 worker-cxl-0 kernel: RIP: 0010:__get_user_nocheck_2+0xd/0x20
+Oct 21 12:17:51 worker-cxl-0 kernel: Code: cc cc cc cc 66 0f 1f 84 00 00 00 00 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa 0f 01 cb 0f ae e8 0f b7 10 <31> c0 0f 01 ca c3 cc cc cc cc 66 0f 1f 84 00 00 00 00 00 90 90 90
+Oct 21 12:17:51 worker-cxl-0 kernel: RSP: 0018:ffffd4a302e7bd18 EFLAGS: 00040246
+Oct 21 12:17:51 worker-cxl-0 kernel: RAX: 00007fafd6c49002 RBX: ffff8f17d21400c0 RCX: 0000000000000000
+Oct 21 12:17:51 worker-cxl-0 kernel: RDX: 00000000000008b9 RSI: 00007fafd6c49000 RDI: ffff8f17d21400c0
+Oct 21 12:17:51 worker-cxl-0 kernel: RBP: ffff8f17d21400c0 R08: ffffd4a302e7bd04 R09: 0000000000000000
+Oct 21 12:17:51 worker-cxl-0 kernel: R10: 0000000000000001 R11: 00000000385c7ff0 R12: 00000000000034f6
+Oct 21 12:17:51 worker-cxl-0 kernel: R13: 0000000000000000 R14: ffff8f17d2140000 R15: ffffd4a302e7bdf0
+Oct 21 12:17:51 worker-cxl-0 kernel: FS:  0000000000000000(0000) GS:ffff8f1b2fd00000(0000) knlGS:0000000000000000
+Oct 21 12:17:51 worker-cxl-0 kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+Oct 21 12:17:51 worker-cxl-0 kernel: CR2: 00007fcd7ee9cf78 CR3: 000000028cd54000 CR4: 0000000000f50ef0
+Oct 21 12:17:51 worker-cxl-0 kernel: PKRU: 55555554
+Oct 21 12:17:51 worker-cxl-0 kernel: Call Trace:
+Oct 21 12:17:51 worker-cxl-0 kernel:  <NMI>
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? show_trace_log_lvl+0x1b0/0x2f0
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? show_trace_log_lvl+0x1b0/0x2f0
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? vhost_get_avail_idx+0x7f/0x110 [vhost]
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? nmi_cpu_backtrace.cold+0x32/0x63
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? nmi_cpu_backtrace_handler+0x11/0x20
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? nmi_handle.part.0+0x56/0x110
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? default_do_nmi+0x127/0x180
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? exc_nmi+0x106/0x180
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? end_repeat_nmi+0xf/0x53
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? __get_user_nocheck_2+0xd/0x20
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? __get_user_nocheck_2+0xd/0x20
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? __get_user_nocheck_2+0xd/0x20
+Oct 21 12:17:51 worker-cxl-0 kernel:  </NMI>
+Oct 21 12:17:51 worker-cxl-0 kernel:  <TASK>
+Oct 21 12:17:51 worker-cxl-0 kernel:  vhost_get_avail_idx+0x7f/0x110 [vhost]
+Oct 21 12:17:51 worker-cxl-0 kernel:  vhost_enable_notify+0xa1/0x160 [vhost]
+Oct 21 12:17:51 worker-cxl-0 kernel:  handle_rx+0x269/0x7b0 [vhost_net]
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? rcutree_enqueue.isra.0+0x1e/0xd0
+Oct 21 12:17:51 worker-cxl-0 kernel:  vhost_run_work_kthread_list+0x7f/0xf0 [vhost]
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? __pfx_vhost_run_work_kthread_list+0x10/0x10 [vhost]
+Oct 21 12:17:51 worker-cxl-0 kernel:  kthread+0xfa/0x240
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? __pfx_kthread+0x10/0x10
+Oct 21 12:17:51 worker-cxl-0 kernel:  ret_from_fork+0x31/0x50
+Oct 21 12:17:51 worker-cxl-0 kernel:  ? __pfx_kthread+0x10/0x10
+Oct 21 12:17:51 worker-cxl-0 kernel:  ret_from_fork_asm+0x1a/0x30
+Oct 21 12:17:51 worker-cxl-0 kernel:  </TASK>
+Oct 21 12:17:51 worker-cxl-0 kernel: NMI backtrace for cpu 3 skipped: idling at default_idle+0xf/0x20
