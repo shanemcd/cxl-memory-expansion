@@ -1,0 +1,85 @@
+{
+  "apiVersion": "kubevirt.io/v1",
+  "kind": "VirtualMachineInstance",
+  "metadata": {
+    "name": "stress-open-1cpu",
+    "namespace": "memory-tier-demo",
+    "labels": {
+      "locking-stress": "true"
+    },
+    "annotations": {
+      "memorytiering.shanemcd.com/policy-class": "tiered",
+      "descheduler.alpha.kubernetes.io/evict": "false"
+    }
+  },
+  "spec": {
+    "nodeSelector": {
+      "kubernetes.io/hostname": "worker-cxl-0"
+    },
+    "terminationGracePeriodSeconds": 10,
+    "domain": {
+      "resources": {
+        "requests": {
+          "cpu": "1",
+          "memory": "2Gi"
+        },
+        "limits": {
+          "cpu": "1",
+          "memory": "2Gi"
+        }
+      },
+      "memory": {
+        "guest": "1Gi",
+        "maxGuest": "1Gi"
+      },
+      "devices": {
+        "disks": [
+          {
+            "name": "root",
+            "disk": {
+              "bus": "virtio"
+            }
+          },
+          {
+            "name": "cloudinit",
+            "disk": {
+              "bus": "virtio"
+            }
+          }
+        ],
+        "interfaces": [
+          {
+            "name": "default",
+            "masquerade": {},
+            "ports": [
+              {
+                "name": "stress-http",
+                "port": 8080
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "networks": [
+      {
+        "name": "default",
+        "pod": {}
+      }
+    ],
+    "volumes": [
+      {
+        "name": "root",
+        "containerDisk": {
+          "image": "quay.io/containerdisks/fedora:latest"
+        }
+      },
+      {
+        "name": "cloudinit",
+        "cloudInitNoCloud": {
+          "userData": "#cloud-config\n{\"write_files\": [{\"path\": \"/usr/local/sbin/locking-stress.py\", \"permissions\": \"0755\", \"content\": \"#!/usr/bin/env python3\\n\\\"\\\"\\\"Bounded guest workload: 384 MiB resident memory, CPU hashing, HTTP traffic.\\\"\\\"\\\"\\nimport hashlib\\nimport http.server\\nimport threading\\nimport time\\n\\nmemory = bytearray(384 * 1024 * 1024)\\nfor offset in range(0, len(memory), 4096):\\n    memory[offset] = 1\\n\\n\\ndef burn():\\n    while True:\\n        hashlib.sha256(memory).digest()\\n        time.sleep(0.02)\\n\\n\\nclass Handler(http.server.BaseHTTPRequestHandler):\\n    def log_message(self, *args):\\n        pass\\n\\n    def do_GET(self):\\n        self.send_response(200)\\n        self.send_header(\\\"Content-Length\\\", str(2 * 1024 * 1024))\\n        self.end_headers()\\n        try:\\n            for _ in range(32):\\n                self.wfile.write(b\\\"x\\\" * 65536)\\n        except (BrokenPipeError, ConnectionResetError):\\n            pass\\n\\n    def do_POST(self):\\n        remaining = min(int(self.headers.get(\\\"Content-Length\\\", \\\"0\\\")), 8 * 1024 * 1024)\\n        while remaining:\\n            chunk = self.rfile.read(min(remaining, 65536))\\n            if not chunk:\\n                break\\n            remaining -= len(chunk)\\n        self.send_response(200)\\n        self.send_header(\\\"Content-Length\\\", \\\"0\\\")\\n        self.end_headers()\\n\\n\\nthreading.Thread(target=burn, daemon=True).start()\\nhttp.server.ThreadingHTTPServer((\\\"0.0.0.0\\\", 8080), Handler).serve_forever()\\n\"}, {\"path\": \"/etc/systemd/system/locking-stress.service\", \"content\": \"[Unit]\\nAfter=network-online.target\\n[Service]\\nExecStart=/usr/bin/python3 /usr/local/sbin/locking-stress.py\\nRestart=no\\nMemoryMax=600M\\nRuntimeMaxSec=900\\n[Install]\\nWantedBy=multi-user.target\\n\"}], \"runcmd\": [[\"systemctl\", \"stop\", \"firewalld\"], [\"systemctl\", \"daemon-reload\"], [\"systemctl\", \"start\", \"locking-stress.service\"]]}"
+        }
+      }
+    ]
+  }
+}

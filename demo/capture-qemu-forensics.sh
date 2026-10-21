@@ -3,6 +3,14 @@
 # Usage: sudo bash capture-qemu-forensics.sh PID [PID...]
 set -uo pipefail
 if (( $# == 0 )); then echo 'Supply exact QEMU PIDs' >&2; exit 2; fi
+# vhost workers are separate kernel tasks, not QEMU threads. Include them.
+pids=("$@")
+for pid in "$@"; do
+  [[ $pid =~ ^[0-9]+$ ]] || exit 2
+  while read -r worker; do
+    [[ -n $worker ]] && pids+=("$worker")
+  done < <(pgrep -x "vhost-$pid" || true)
+done
 run() { printf '\n###'; printf ' %q' "$@"; printf '\n'; timeout -k 2 8 "$@" 2>&1 || true; }
 run date -u --iso-8601=seconds
 run uname -a
@@ -12,7 +20,7 @@ run cat /proc/pressure/memory
 run cat /proc/vmstat
 run cat /sys/kernel/mm/numa/demotion_enabled
 run journalctl -k -n 150 --no-pager
-for pid in "$@"; do
+for pid in "${pids[@]}"; do
   [[ $pid =~ ^[0-9]+$ ]] || exit 2
   printf '\n## PID %s\n' "$pid"
   run ps -p "$pid" -o pid,ppid,stat,time,wchan:40,comm

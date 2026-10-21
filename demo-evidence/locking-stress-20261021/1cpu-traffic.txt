@@ -1,0 +1,19 @@
+Warning: Permanently added '192.168.124.20' (ED25519) to the list of known hosts.
+Oct 21 12:56:47 worker-cxl-0 systemd[1]: Started locking-stress-client.service - [systemd-run] /bin/python3 /tmp/locking-stress-client.py 180 10.130.0.25 10.130.0.26.
+Oct 21 12:56:48 worker-cxl-0 python3[262842]: {"targets": ["10.130.0.25", "10.130.0.26"], "duration": 180}
+Oct 21 12:56:58 worker-cxl-0 python3[262842]: {"10.130.0.25:bytes": 2076180480, "10.130.0.25:cycles": 660, "10.130.0.26:bytes": 2132803584, "10.130.0.26:cycles": 678}
+Oct 21 12:57:08 worker-cxl-0 python3[262842]: {"10.130.0.25:bytes": 4171235328, "10.130.0.25:cycles": 1326, "10.130.0.26:bytes": 4237295616, "10.130.0.26:cycles": 1347}
+Oct 21 12:57:18 worker-cxl-0 python3[262842]: {"10.130.0.25:bytes": 6228541440, "10.130.0.25:cycles": 1980, "10.130.0.26:bytes": 6288310272, "10.130.0.26:cycles": 1999}
+Oct 21 12:57:28 worker-cxl-0 python3[262842]: {"10.130.0.25:bytes": 8342470656, "10.130.0.25:cycles": 2652, "10.130.0.26:bytes": 8389656576, "10.130.0.26:cycles": 2667}
+Oct 21 12:57:38 worker-cxl-0 python3[262842]: {"10.130.0.25:bytes": 10437525504, "10.130.0.25:cycles": 3318, "10.130.0.26:bytes": 10487857152, "10.130.0.26:cycles": 3334}
+Oct 21 12:57:48 worker-cxl-0 python3[262842]: {"10.130.0.25:bytes": 12523143168, "10.130.0.25:cycles": 3981, "10.130.0.26:bytes": 12564037632, "10.130.0.26:cycles": 3994}
+Oct 21 12:57:58 worker-cxl-0 python3[262842]: {"10.130.0.25:bytes": 14633926656, "10.130.0.25:cycles": 4652, "10.130.0.26:bytes": 14677966848, "10.130.0.26:cycles": 4666}
+Oct 21 12:58:08 worker-cxl-0 python3[262842]: {"10.130.0.25:bytes": 16728981504, "10.130.0.25:cycles": 5318, "10.130.0.26:bytes": 16760438784, "10.130.0.26:cycles": 5328}
+Oct 21 12:58:18 worker-cxl-0 python3[262842]: {"10.130.0.25:bytes": 18811453440, "10.130.0.25:cycles": 5980, "10.130.0.26:bytes": 18830327808, "10.130.0.26:cycles": 5986}
+Oct 21 12:58:28 worker-cxl-0 python3[262842]: {"10.130.0.25:bytes": 20912799744, "10.130.0.25:cycles": 6648, "10.130.0.26:bytes": 20925382656, "10.130.0.26:cycles": 6652}
+Oct 21 12:58:38 worker-cxl-0 python3[262842]: {"10.130.0.25:bytes": 21208498176, "10.130.0.25:cycles": 6742, "10.130.0.25:errors": 28, "10.130.0.25:last_error:ConnectionRefusedError": 24, "10.130.0.25:last_error:ConnectionResetError": 2, "10.130.0.25:last_error:TimeoutError": 2, "10.130.0.26:bytes": 21230518272, "10.130.0.26:cycles": 6749, "10.130.0.26:errors": 28, "10.130.0.26:last_error:ConnectionRefusedError": 24, "10.130.0.26:last_error:ConnectionResetError": 1, "10.130.0.26:last_error:RuntimeError": 1, "10.130.0.26:last_error:TimeoutError": 2}
+Oct 21 12:58:48 worker-cxl-0 python3[262842]: {"10.130.0.25:bytes": 21208498176, "10.130.0.25:cycles": 6742, "10.130.0.25:errors": 32, "10.130.0.25:last_error:ConnectionRefusedError": 24, "10.130.0.25:last_error:ConnectionResetError": 2, "10.130.0.25:last_error:TimeoutError": 6, "10.130.0.26:bytes": 21230518272, "10.130.0.26:cycles": 6749, "10.130.0.26:errors": 32, "10.130.0.26:last_error:ConnectionRefusedError": 24, "10.130.0.26:last_error:ConnectionResetError": 1, "10.130.0.26:last_error:RuntimeError": 1, "10.130.0.26:last_error:TimeoutError": 6}
+Oct 21 12:58:48 worker-cxl-0 systemd[1]: Stopping locking-stress-client.service - [systemd-run] /bin/python3 /tmp/locking-stress-client.py 180 10.130.0.25 10.130.0.26...
+Oct 21 12:58:48 worker-cxl-0 systemd[1]: locking-stress-client.service: Deactivated successfully.
+Oct 21 12:58:48 worker-cxl-0 systemd[1]: Stopped locking-stress-client.service - [systemd-run] /bin/python3 /tmp/locking-stress-client.py 180 10.130.0.25 10.130.0.26.
+Oct 21 12:58:48 worker-cxl-0 systemd[1]: locking-stress-client.service: Consumed 17.245s CPU time, 21.1M memory peak.

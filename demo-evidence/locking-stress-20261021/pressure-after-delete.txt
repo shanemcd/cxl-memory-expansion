@@ -1,0 +1,25 @@
+Warning: Permanently added '192.168.124.20' (ED25519) to the list of known hosts.
+2026-10-21T13:14:06+00:00
+               total        used        free      shared  buff/cache   available
+Mem:           20082       14005        2293          97        4299        6077
+Swap:              0           0           0
+/sys/devices/system/node/node0/meminfo:Node 0 MemTotal:       16370132 kB
+/sys/devices/system/node/node0/meminfo:Node 0 MemFree:         1647984 kB
+/sys/devices/system/node/node0/meminfo:Node 0 FilePages:       1325440 kB
+/sys/devices/system/node/node1/meminfo:Node 1 MemTotal:        4194304 kB
+/sys/devices/system/node/node1/meminfo:Node 1 MemFree:          700572 kB
+/sys/devices/system/node/node1/meminfo:Node 1 FilePages:       2865552 kB
+cat: /proc/pressure/memory: No such file or directory
+true
+pgdemote_kswapd 872957
+pgdemote_direct 70
+pgdemote_khugepaged 0
+pswpin 0
+pswpout 0
+oom_kill 0
+ 259572  259430 Sl   00:00:38 qemu-kvm
+ 259576       2 S    00:00:00 vhost-259572
+ 260085  259965 Sl   00:00:32 qemu-kvm
+ 260089       2 S    00:00:00 vhost-260085
+ 260420  260296 Sl   00:00:31 qemu-kvm
+ 260424       2 S    00:00:00 vhost-260420

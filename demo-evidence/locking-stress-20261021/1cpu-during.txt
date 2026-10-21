@@ -1,0 +1,155 @@
+Warning: Permanently added '192.168.124.20' (ED25519) to the list of known hosts.
+2026-10-21T12:57:17+00:00
+               total        used        free      shared  buff/cache   available
+Mem:           20082        7238        9050         101        4366       12843
+Swap:              0           0           0
+cat: /proc/pressure/memory: No such file or directory
+true
+pgdemote_kswapd 0
+pgdemote_direct 0
+pgdemote_khugepaged 0
+pswpin 0
+pswpout 0
+oom_kill 0
+ 259572  259430 Sl   00:00:20 qemu-kvm
+ 259576       2 S    00:00:00 vhost-259572
+ 260085  259965 Sl   00:00:20 qemu-kvm
+ 260089       2 S    00:00:00 vhost-260085
+ 260420  260296 Sl   00:00:19 qemu-kvm
+ 260424       2 S    00:00:00 vhost-260420
+ 262393  262204 Sl   00:00:56 qemu-kvm
+ 262397       2 S    00:00:01 vhost-262393
+ 262516  262261 SLl  00:00:55 qemu-kvm
+ 262520       2 R    00:00:01 vhost-262516
+### QEMU 262393
+guest=memory-tier-demo_stress-open-1cpu
+mem-lock=off
+State:	S (sleeping)
+VmLck:	       0 kB
+VmRSS:	  943960 kB
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+Mems_allowed_list:	0-1
+262393 (qemu-kvm) S 262204 262392 262392 0 -1 138412416 29694 0 0 0 5229 399 0 0 20 0 11 0 6649447 3325980672 235943 18446744073709551615 94379197546496 94379205702781 140733822208320 0 0 0 268444224 4096 16963 0 0 0 17 1 0 0 0 4997 0 94379212415392 94379227580674 94379818020864 140733822213184 140733822218024 140733822218024 140733822218210 0
+[<0>] poll_schedule_timeout.constprop.0+0x3a/0x80
+[<0>] do_poll.constprop.0+0x25f/0x360
+[<0>] do_sys_poll+0x1eb/0x290
+[<0>] __x64_sys_ppoll+0xe0/0x160
+[<0>] do_syscall_64+0x7d/0x160
+[<0>] entry_SYSCALL_64_after_hwframe+0x76/0x7e
+cgroup=/sys/fs/cgroup/kubepods.slice/kubepods-podd7f9db93_714a_49b7_bf97_e44973855be4.slice/crio-0693b6fd715c0d2df1e9ab78010b042d534157a29706d527be6dfe76502c8141.scope
+cpu.max
+100000 100000
+cpu.stat
+usage_usec 59895053
+user_usec 52611485
+system_usec 7283567
+nice_usec 0
+core_sched.force_idle_usec 0
+nr_periods 645
+nr_throttled 312
+throttled_usec 2418227
+nr_bursts 0
+burst_usec 0
+memory.current
+990146560
+memory.max
+2558525440
+memory.events
+low 0
+high 0
+max 0
+oom 0
+oom_kill 0
+oom_group_kill 0
+cgroup=/sys/fs/cgroup/kubepods.slice/kubepods-podd7f9db93_714a_49b7_bf97_e44973855be4.slice
+cpu.max
+102000 100000
+cpu.stat
+usage_usec 60186429
+user_usec 52740424
+system_usec 7446005
+nice_usec 0
+core_sched.force_idle_usec 0
+nr_periods 661
+nr_throttled 193
+throttled_usec 1099721
+nr_bursts 0
+burst_usec 0
+memory.current
+998576128
+memory.max
+2618523648
+memory.events
+low 0
+high 0
+max 0
+oom 0
+oom_kill 0
+oom_group_kill 0
+### QEMU 262516
+guest=memory-tier-demo_stress-lock-1cpu
+mem-lock=on
+State:	S (sleeping)
+VmLck:	 2709344 kB
+VmRSS:	 1512808 kB
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+Mems_allowed_list:	0-1
+262516 (qemu-kvm) S 262261 262515 262515 0 -1 138412416 107426 0 0 0 5139 393 0 0 20 0 10 0 6649545 2774401024 378144 18446744073709551615 94733379788800 94733387945085 140735873047776 0 0 0 268444224 4096 16963 0 0 0 17 3 0 0 0 4894 0 94733394657696 94733409822978 94734039830528 140735873055809 140735873060648 140735873060648 140735873060834 0
+[<0>] poll_schedule_timeout.constprop.0+0x3a/0x80
+[<0>] do_poll.constprop.0+0x25f/0x360
+[<0>] do_sys_poll+0x1eb/0x290
+[<0>] __x64_sys_ppoll+0xe0/0x160
+[<0>] do_syscall_64+0x7d/0x160
+[<0>] entry_SYSCALL_64_after_hwframe+0x76/0x7e
+cgroup=/sys/fs/cgroup/kubepods.slice/kubepods-pod0459a2b5_3dc5_488f_95af_54d70875289e.slice/crio-3d349569bebab4450f0d752d70cbacfe316fcbf723de0784340147e5eecd61fe.scope
+cpu.max
+100000 100000
+cpu.stat
+usage_usec 58883771
+user_usec 51593353
+system_usec 7290417
+nice_usec 0
+core_sched.force_idle_usec 0
+nr_periods 635
+nr_throttled 311
+throttled_usec 2875829
+nr_bursts 0
+burst_usec 0
+memory.current
+1533759488
+memory.max
+2556428288
+memory.events
+low 0
+high 0
+max 0
+oom 0
+oom_kill 0
+oom_group_kill 0
+cgroup=/sys/fs/cgroup/kubepods.slice/kubepods-pod0459a2b5_3dc5_488f_95af_54d70875289e.slice
+cpu.max
+102000 100000
+cpu.stat
+usage_usec 59168998
+user_usec 51753601
+system_usec 7415396
+nice_usec 0
+core_sched.force_idle_usec 0
+nr_periods 652
+nr_throttled 163
+throttled_usec 781256
+nr_bursts 0
+burst_usec 0
+memory.current
+1542221824
+memory.max
+2616426496
+memory.events
+low 0
+high 0
+max 0
+oom 0
+oom_kill 0
+oom_group_kill 0

@@ -1,0 +1,29 @@
+Warning: Permanently added '192.168.124.20' (ED25519) to the list of known hosts.
+Oct 21 13:10:20 worker-cxl-0 systemd[1]: Started locking-stress-pressure.service - [systemd-run] /bin/python3 /tmp/locking-stress-pressure.py 10240 150 45.
+Oct 21 13:10:20 worker-cxl-0 python3[270702]: {"budget_MiB": 10240, "window": 150, "hold": 45, "node0_guard_kB": 122548}
+Oct 21 13:10:22 worker-cxl-0 python3[270702]: {"allocated_MiB": 256, "node0_free_kB": 4752012, "available_kB": 12843592}
+Oct 21 13:10:24 worker-cxl-0 python3[270702]: {"allocated_MiB": 512, "node0_free_kB": 4489836, "available_kB": 12581640}
+Oct 21 13:10:26 worker-cxl-0 python3[270702]: {"allocated_MiB": 768, "node0_free_kB": 4229880, "available_kB": 12321688}
+Oct 21 13:10:29 worker-cxl-0 python3[270702]: {"allocated_MiB": 1024, "node0_free_kB": 3969512, "available_kB": 12061336}
+Oct 21 13:10:33 worker-cxl-0 python3[270702]: {"allocated_MiB": 1280, "node0_free_kB": 3733928, "available_kB": 11825748}
+Oct 21 13:10:36 worker-cxl-0 python3[270702]: {"allocated_MiB": 1536, "node0_free_kB": 3467956, "available_kB": 11559776}
+Oct 21 13:10:40 worker-cxl-0 python3[270702]: {"allocated_MiB": 1792, "node0_free_kB": 3201672, "available_kB": 11293492}
+Oct 21 13:10:44 worker-cxl-0 python3[270702]: {"allocated_MiB": 2048, "node0_free_kB": 2957856, "available_kB": 11049676}
+Oct 21 13:10:47 worker-cxl-0 python3[270702]: {"allocated_MiB": 2304, "node0_free_kB": 2700136, "available_kB": 10791952}
+Oct 21 13:10:51 worker-cxl-0 python3[270702]: {"allocated_MiB": 2560, "node0_free_kB": 2438816, "available_kB": 10530632}
+Oct 21 13:10:54 worker-cxl-0 python3[270702]: {"allocated_MiB": 2816, "node0_free_kB": 2174984, "available_kB": 10266780}
+Oct 21 13:10:57 worker-cxl-0 python3[270702]: {"allocated_MiB": 3072, "node0_free_kB": 1908628, "available_kB": 10000452}
+Oct 21 13:11:00 worker-cxl-0 python3[270702]: {"allocated_MiB": 3328, "node0_free_kB": 1547220, "available_kB": 9639044}
+Oct 21 13:11:03 worker-cxl-0 python3[270702]: {"allocated_MiB": 3584, "node0_free_kB": 1284152, "available_kB": 9375976}
+Oct 21 13:11:06 worker-cxl-0 python3[270702]: {"allocated_MiB": 3840, "node0_free_kB": 1020520, "available_kB": 9112344}
+Oct 21 13:11:09 worker-cxl-0 python3[270702]: {"allocated_MiB": 4096, "node0_free_kB": 736732, "available_kB": 8828556}
+Oct 21 13:11:12 worker-cxl-0 python3[270702]: {"allocated_MiB": 4352, "node0_free_kB": 519808, "available_kB": 8611688}
+Oct 21 13:11:18 worker-cxl-0 python3[270702]: {"allocated_MiB": 4608, "node0_free_kB": 215272, "available_kB": 8307156}
+Oct 21 13:11:26 worker-cxl-0 python3[270702]: {"allocated_MiB": 4864, "node0_free_kB": 206048, "available_kB": 8081608}
+Oct 21 13:11:34 worker-cxl-0 python3[270702]: {"allocated_MiB": 5120, "node0_free_kB": 160248, "available_kB": 7820036}
+Oct 21 13:11:43 worker-cxl-0 python3[270702]: {"allocated_MiB": 5376, "node0_free_kB": 223372, "available_kB": 7557980}
+Oct 21 13:11:51 worker-cxl-0 python3[270702]: {"allocated_MiB": 5632, "node0_free_kB": 197728, "available_kB": 7317836}
+Oct 21 13:11:52 worker-cxl-0 systemd[1]: Stopping locking-stress-pressure.service - [systemd-run] /bin/python3 /tmp/locking-stress-pressure.py 10240 150 45...
+Oct 21 13:11:52 worker-cxl-0 systemd[1]: locking-stress-pressure.service: Deactivated successfully.
+Oct 21 13:11:52 worker-cxl-0 systemd[1]: Stopped locking-stress-pressure.service - [systemd-run] /bin/python3 /tmp/locking-stress-pressure.py 10240 150 45.
+Oct 21 13:11:52 worker-cxl-0 systemd[1]: locking-stress-pressure.service: Consumed 11.702s CPU time, 5.5G memory peak.

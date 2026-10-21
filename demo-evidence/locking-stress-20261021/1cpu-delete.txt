@@ -1,0 +1,4 @@
+2026-10-21T12:58:29+00:00
+virtualmachineinstance.kubevirt.io "stress-lock-1cpu" deleted
+virtualmachineinstance.kubevirt.io "stress-open-1cpu" deleted
+2026-10-21T12:58:34+00:00

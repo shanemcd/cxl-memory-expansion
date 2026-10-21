@@ -1,0 +1,5 @@
+2026-10-21T13:13:40+00:00
+virtualmachineinstance.kubevirt.io "stress-lock-pressure" deleted
+virtualmachineinstance.kubevirt.io "stress-open-pressure" deleted
+DELETE_EXIT=0
+2026-10-21T13:14:05+00:00

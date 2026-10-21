@@ -1,0 +1,25 @@
+2026-10-21T13:16:18+00:00
+NAME            STATUS   ROLES                         AGE   VERSION
+cxl-master-0    Ready    control-plane,master,worker   33h   v1.37.1
+worker-cxl-0    Ready    worker,worker-cxl             33h   v1.37.1
+worker-dram-0   Ready    worker                        33h   v1.37.1
+cluster operators: 34 unhealthy: []
+Deployed mt-locking-452d0b5a04
+demo-dram-only Running Ready
+demo-tier-dra Running Ready
+demo-tiered Running Ready
+No resources found in memory-tier-demo namespace.
+1 desired / 1 available
+Warning: Permanently added '192.168.124.20' (ED25519) to the list of known hosts.
+               total        used        free      shared  buff/cache   available
+Mem:           20082        4883       11417          97        4293       15199
+Swap:              0           0           0
+    PID STAT     TIME
+ 259572 Sl   00:00:39
+ 260085 Sl   00:00:33
+ 273395 Sl   00:00:16
+inactive
+inactive
+pgdemote_kswapd 872957
+pgdemote_direct 70
+pgdemote_khugepaged 0
