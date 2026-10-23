@@ -1,0 +1,2 @@
+NAME       READY   STATUS    RESTARTS   AGE   IP            NODE            NOMINATED NODE   READINESS GATES
+dram-hog   1/1     Running   0          17m   10.129.0.26   worker-dram-0   <none>           <none>

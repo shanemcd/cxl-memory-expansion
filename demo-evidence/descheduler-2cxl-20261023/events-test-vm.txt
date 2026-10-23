@@ -1,0 +1,223 @@
+LAST SEEN   TYPE      REASON                            OBJECT                                                      MESSAGE
+56m         Normal    SuccessfulCreate                  virtualmachineinstance/test-vm                              Created Migration kubevirt-evacuation-wj8vc
+56m         Warning   FailedScheduling                  pod/virt-launcher-test-vm-rg8pp                             0/3 nodes are available: 1 Insufficient memory, 2 node(s) didn't match Pod's node affinity/selector. preemption: 0/3 nodes are available: 1 No preemption victims found for incoming pod, 2 Preemption is not helpful for scheduling.
+56m         Normal    SuccessfulCreate                  virtualmachineinstancemigration/kubevirt-evacuation-wj8vc   Created migration target pod virt-launcher-test-vm-rg8pp
+51m         Warning   FailedMigration                   virtualmachineinstancemigration/kubevirt-evacuation-wj8vc   Migration target pod was removed during active migration.
+51m         Normal    SuccessfulCreate                  virtualmachineinstance/test-vm                              Created Migration kubevirt-evacuation-28sqq
+51m         Warning   migrationTargetPodUnschedulable   virtualmachineinstancemigration/kubevirt-evacuation-wj8vc   Migration target pod for VMI [test-vm/test-vm] is currently unschedulable.
+51m         Normal    SuccessfulDelete                  virtualmachineinstancemigration/kubevirt-evacuation-wj8vc   unschedulable pod test-vm/virt-launcher-test-vm-rg8pp timeout period exceeded
+51m         Normal    SuccessfulCreate                  virtualmachineinstancemigration/kubevirt-evacuation-28sqq   Created migration target pod virt-launcher-test-vm-ds5lk
+51m         Warning   FailedScheduling                  pod/virt-launcher-test-vm-ds5lk                             0/3 nodes are available: 1 Insufficient memory, 2 node(s) didn't match Pod's node affinity/selector. preemption: 0/3 nodes are available: 1 No preemption victims found for incoming pod, 2 Preemption is not helpful for scheduling.
+46m         Normal    SuccessfulCreate                  virtualmachineinstance/test-vm                              Created Migration kubevirt-evacuation-26p26
+46m         Warning   FailedMigration                   virtualmachineinstancemigration/kubevirt-evacuation-28sqq   Migration target pod was removed during active migration.
+46m         Normal    SuccessfulDelete                  virtualmachineinstancemigration/kubevirt-evacuation-28sqq   unschedulable pod test-vm/virt-launcher-test-vm-ds5lk timeout period exceeded
+46m         Warning   migrationTargetPodUnschedulable   virtualmachineinstancemigration/kubevirt-evacuation-28sqq   Migration target pod for VMI [test-vm/test-vm] is currently unschedulable.
+45m         Warning   FailedScheduling                  pod/virt-launcher-test-vm-775bd                             0/3 nodes are available: 1 Insufficient memory, 2 node(s) didn't match Pod's node affinity/selector. preemption: 0/3 nodes are available: 1 No preemption victims found for incoming pod, 2 Preemption is not helpful for scheduling.
+45m         Normal    SuccessfulCreate                  virtualmachineinstancemigration/kubevirt-evacuation-26p26   Created migration target pod virt-launcher-test-vm-775bd
+40m         Normal    SuccessfulDelete                  virtualmachineinstancemigration/kubevirt-evacuation-26p26   unschedulable pod test-vm/virt-launcher-test-vm-775bd timeout period exceeded
+40m         Normal    SuccessfulCreate                  virtualmachineinstance/test-vm                              Created Migration kubevirt-evacuation-8gdkx
+40m         Warning   FailedMigration                   virtualmachineinstancemigration/kubevirt-evacuation-26p26   Migration target pod was removed during active migration.
+40m         Warning   migrationTargetPodUnschedulable   virtualmachineinstancemigration/kubevirt-evacuation-26p26   Migration target pod for VMI [test-vm/test-vm] is currently unschedulable.
+40m         Warning   MigrationBackoff                  virtualmachineinstance/test-vm                              backoff migrating vmi test-vm/test-vm
+39m         Normal    SuccessfulCreate                  virtualmachineinstancemigration/kubevirt-evacuation-8gdkx   Created migration target pod virt-launcher-test-vm-pnbxp
+39m         Warning   FailedScheduling                  pod/virt-launcher-test-vm-pnbxp                             0/3 nodes are available: 1 Insufficient memory, 2 node(s) didn't match Pod's node affinity/selector. preemption: 0/3 nodes are available: 1 No preemption victims found for incoming pod, 2 Preemption is not helpful for scheduling.
+36m         Warning   migrationTargetPodUnschedulable   virtualmachineinstancemigration/kubevirt-evacuation-8gdkx   Migration target pod for VMI [test-vm/test-vm] is currently unschedulable.
+36m         Warning   FailedScheduling                  pod/virt-launcher-test-vm-pnbxp                             0/4 nodes are available: 1 Insufficient devices.kubevirt.io/kvm, 1 Insufficient devices.kubevirt.io/tun, 1 Insufficient devices.kubevirt.io/vhost-net, 1 Insufficient memory, 2 node(s) didn't match Pod's node affinity/selector. preemption: 0/4 nodes are available: 1 No preemption victims found for incoming pod, 3 Preemption is not helpful for scheduling.
+36m         Normal    Scheduled                         pod/virt-launcher-test-vm-pnbxp                             Successfully assigned test-vm/virt-launcher-test-vm-pnbxp to worker-cxl-1
+36m         Normal    AddedInterface                    pod/virt-launcher-test-vm-pnbxp                             Add eth0 [10.131.0.11/23] from ovn-kubernetes
+36m         Normal    Pulling                           pod/virt-launcher-test-vm-pnbxp                             Pulling image "quay.io/containerdisks/fedora@sha256:1217dcc8c58dbc3ca08e0323929b86f609506121adb01d0fd892232f2c0544f6"
+36m         Normal    Started                           pod/virt-launcher-test-vm-pnbxp                             Container started
+36m         Normal    Created                           pod/virt-launcher-test-vm-pnbxp                             Container created
+36m         Normal    Pulled                            pod/virt-launcher-test-vm-pnbxp                             Container image "registry.redhat.io/container-native-virtualization/virt-launcher-rhel9@sha256:4f146657d2ee8905c16acf95a1c2fd5f2aca59c645de9b3f9fe484d740556ebc" already present on machine and can be accessed by the pod
+36m         Normal    Pulled                            pod/virt-launcher-test-vm-pnbxp                             Successfully pulled image "quay.io/containerdisks/fedora@sha256:1217dcc8c58dbc3ca08e0323929b86f609506121adb01d0fd892232f2c0544f6" in 9.724s (9.724s including waiting). Image size: 583733278 bytes.
+36m         Normal    Started                           pod/virt-launcher-test-vm-pnbxp                             Container started
+36m         Normal    Created                           pod/virt-launcher-test-vm-pnbxp                             Container created
+36m         Normal    Pulled                            pod/virt-launcher-test-vm-pnbxp                             Container image "registry.redhat.io/container-native-virtualization/virt-launcher-rhel9@sha256:4f146657d2ee8905c16acf95a1c2fd5f2aca59c645de9b3f9fe484d740556ebc" already present on machine and can be accessed by the pod
+36m         Normal    Started                           pod/virt-launcher-test-vm-pnbxp                             Container started
+36m         Normal    Started                           pod/virt-launcher-test-vm-pnbxp                             Container started
+36m         Normal    Created                           pod/virt-launcher-test-vm-pnbxp                             Container created
+36m         Normal    Pulled                            pod/virt-launcher-test-vm-pnbxp                             Successfully pulled image "quay.io/containerdisks/fedora@sha256:1217dcc8c58dbc3ca08e0323929b86f609506121adb01d0fd892232f2c0544f6" in 497ms (497ms including waiting). Image size: 583733278 bytes.
+36m         Normal    Created                           pod/virt-launcher-test-vm-pnbxp                             Container created
+36m         Normal    Pulling                           pod/virt-launcher-test-vm-pnbxp                             Pulling image "quay.io/containerdisks/fedora@sha256:1217dcc8c58dbc3ca08e0323929b86f609506121adb01d0fd892232f2c0544f6"
+36m         Normal    SuccessfulHandOver                virtualmachineinstancemigration/kubevirt-evacuation-8gdkx   Migration target pod is ready for preparation by virt-handler.
+36m         Normal    Migrating                         virtualmachineinstance/test-vm                              VirtualMachineInstance is migrating.
+36m         Normal    PreparingTarget                   virtualmachineinstance/test-vm                              VirtualMachineInstance Migration Target Prepared.
+36m         Normal    PreparingTarget                   virtualmachineinstance/test-vm                              Migration Target is listening at 10.131.0.9, on ports: 34895,38683,39929
+36m         Warning   BackOff                           pod/virt-launcher-test-vm-pnbxp                             Back-off restarting failed container guest-console-log in pod virt-launcher-test-vm-pnbxp_test-vm(ba40b6da-87a0-452f-b4d7-713755e5ec71)
+36m         Normal    Deleted                           virtualmachineinstance/test-vm                              Signaled Deletion
+36m         Normal    Migrated                          virtualmachineinstance/test-vm                              The VirtualMachineInstance migrated to node worker-cxl-1.
+36m         Normal    Pulled                            pod/virt-launcher-test-vm-pnbxp                             Container image "registry.redhat.io/container-native-virtualization/virt-launcher-rhel9@sha256:4f146657d2ee8905c16acf95a1c2fd5f2aca59c645de9b3f9fe484d740556ebc" already present on machine and can be accessed by the pod
+36m         Normal    Created                           pod/virt-launcher-test-vm-pnbxp                             Container created
+36m         Normal    Started                           pod/virt-launcher-test-vm-pnbxp                             Container started
+36m         Normal    SuccessfulMigration               virtualmachineinstancemigration/kubevirt-evacuation-8gdkx   Source node reported migration succeeded
+36m         Normal    Killing                           pod/virt-launcher-test-vm-l4674                             Stopping container guest-console-log
+18m         Normal    Scheduled                         pod/virt-launcher-test-vm-2-smjfx                           Successfully assigned test-vm/virt-launcher-test-vm-2-smjfx to worker-dram-0
+18m         Normal    SuccessfulCreate                  virtualmachineinstance/test-vm-2                            Created virtual machine pod virt-launcher-test-vm-2-smjfx
+18m         Normal    Created                           pod/virt-launcher-test-vm-2-smjfx                           Container created
+18m         Normal    AddedInterface                    pod/virt-launcher-test-vm-2-smjfx                           Add eth0 [10.129.0.25/23] from ovn-kubernetes
+18m         Normal    Pulled                            pod/virt-launcher-test-vm-2-smjfx                           Container image "registry.redhat.io/container-native-virtualization/virt-launcher-rhel9@sha256:4f146657d2ee8905c16acf95a1c2fd5f2aca59c645de9b3f9fe484d740556ebc" already present on machine and can be accessed by the pod
+18m         Normal    Started                           pod/virt-launcher-test-vm-2-smjfx                           Container started
+18m         Normal    Pulling                           pod/virt-launcher-test-vm-2-smjfx                           Pulling image "quay.io/containerdisks/fedora:latest"
+17m         Normal    Created                           pod/virt-launcher-test-vm-2-smjfx                           Container created
+17m         Normal    Started                           pod/virt-launcher-test-vm-2-smjfx                           Container started
+17m         Normal    Pulled                            pod/virt-launcher-test-vm-2-smjfx                           Successfully pulled image "quay.io/containerdisks/fedora:latest" in 14.507s (14.508s including waiting). Image size: 583733278 bytes.
+17m         Normal    Started                           pod/virt-launcher-test-vm-2-smjfx                           Container started
+17m         Normal    Pulling                           pod/virt-launcher-test-vm-2-smjfx                           Pulling image "quay.io/containerdisks/fedora:latest"
+17m         Normal    Pulled                            pod/virt-launcher-test-vm-2-smjfx                           Container image "registry.redhat.io/container-native-virtualization/virt-launcher-rhel9@sha256:4f146657d2ee8905c16acf95a1c2fd5f2aca59c645de9b3f9fe484d740556ebc" already present on machine and can be accessed by the pod
+17m         Normal    Created                           pod/virt-launcher-test-vm-2-smjfx                           Container created
+17m         Normal    Started                           pod/virt-launcher-test-vm-2-smjfx                           Container started
+17m         Normal    Started                           pod/virt-launcher-test-vm-2-smjfx                           Container started
+17m         Normal    Pulled                            pod/virt-launcher-test-vm-2-smjfx                           Successfully pulled image "quay.io/containerdisks/fedora:latest" in 457ms (457ms including waiting). Image size: 583733278 bytes.
+17m         Normal    Created                           pod/virt-launcher-test-vm-2-smjfx                           Container created
+17m         Warning   MACCollision                      virtualmachineinstance/test-vm-2                            MAC 02:72:29:41:74:3a: Collision between vmi/test-vm/test-vm, vmi/test-vm/test-vm-2
+17m         Normal    Created                           virtualmachineinstance/test-vm-2                            VirtualMachineInstance defined.
+17m         Normal    Started                           virtualmachineinstance/test-vm-2                            VirtualMachineInstance started.
+17m         Warning   BackOff                           pod/virt-launcher-test-vm-2-smjfx                           Back-off restarting failed container guest-console-log in pod virt-launcher-test-vm-2-smjfx_test-vm(b62c5992-d325-4f7b-8e56-4c4f2d05570e)
+17m         Normal    Pulled                            pod/virt-launcher-test-vm-2-smjfx                           Container image "registry.redhat.io/container-native-virtualization/virt-launcher-rhel9@sha256:4f146657d2ee8905c16acf95a1c2fd5f2aca59c645de9b3f9fe484d740556ebc" already present on machine and can be accessed by the pod
+17m         Normal    Created                           pod/virt-launcher-test-vm-2-smjfx                           Container created
+15m         Normal    SuccessfulCreate                  virtualmachineinstance/test-vm-2                            Created Migration kubevirt-evacuation-cn2p7
+15m         Warning   FailedScheduling                  pod/virt-launcher-test-vm-2-9bxlq                           0/4 nodes are available: 1 node(s) didn't match pod anti-affinity rules, 3 node(s) didn't match Pod's node affinity/selector. preemption: 0/4 nodes are available: 1 No preemption victims found for incoming pod, 3 Preemption is not helpful for scheduling.
+15m         Normal    SuccessfulCreate                  virtualmachineinstancemigration/kubevirt-evacuation-cn2p7   Created migration target pod virt-launcher-test-vm-2-9bxlq
+15m         Warning   migrationTargetPodUnschedulable   virtualmachineinstancemigration/kubevirt-evacuation-cn2p7   Migration target pod for VMI [test-vm/test-vm-2] is currently unschedulable.
+13m         Normal    SuccessfulDelete                  virtualmachineinstancemigration/kubevirt-evacuation-cn2p7   migration canceled and pod test-vm/virt-launcher-test-vm-2-9bxlq is deleted
+13m         Warning   migrationTargetPodUnschedulable   virtualmachineinstancemigration/kubevirt-evacuation-l2pff   Migration target pod for VMI [test-vm/test-vm-2] is currently unschedulable.
+13m         Normal    SuccessfulCreate                  virtualmachineinstancemigration/kubevirt-evacuation-l2pff   Created migration target pod virt-launcher-test-vm-2-pwlhk
+13m         Warning   FailedMigration                   virtualmachineinstancemigration/kubevirt-evacuation-cn2p7   Migration failed due to being canceled
+13m         Warning   FailedScheduling                  pod/virt-launcher-test-vm-2-pwlhk                           0/4 nodes are available: 1 node(s) didn't match pod anti-affinity rules, 3 node(s) didn't match Pod's node affinity/selector. preemption: 0/4 nodes are available: 1 No preemption victims found for incoming pod, 3 Preemption is not helpful for scheduling.
+13m         Normal    SuccessfulCreate                  virtualmachineinstance/test-vm-2                            Created Migration kubevirt-evacuation-l2pff
+9m46s       Normal    ShuttingDown                      virtualmachineinstance/test-vm-2                            Signaled Graceful Shutdown
+9m46s       Normal    SuccessfulDelete                  virtualmachineinstance/test-vm-2                            Deleted virtual machine pod virt-launcher-test-vm-2-pwlhk
+9m46s       Normal    SuccessfulDelete                  virtualmachine/test-vm-2                                    Stopped the virtual machine by deleting the virtual machine instance 36c5e89b-69c9-4863-a0a2-bc054e4ad643
+9m46s       Normal    Killing                           pod/virt-launcher-test-vm-2-smjfx                           Stopping container guest-console-log
+9m46s       Warning   FailedMigration                   virtualmachineinstancemigration/kubevirt-evacuation-l2pff   Migration target pod was removed during active migration.
+9m44s       Normal    Stopped                           virtualmachineinstance/test-vm-2                            The VirtualMachineInstance was shut down.
+9m44s       Normal    Deleted                           virtualmachineinstance/test-vm-2                            Signaled Deletion
+9m43s       Normal    SuccessfulDelete                  virtualmachineinstance/test-vm-2                            Deleted virtual machine pod virt-launcher-test-vm-2-smjfx
+9m16s       Normal    SuccessfulCreate                  virtualmachineinstance/test-vm-2                            Created virtual machine pod virt-launcher-test-vm-2-kqdf2
+9m16s       Normal    Scheduled                         pod/virt-launcher-test-vm-2-kqdf2                           Successfully assigned test-vm/virt-launcher-test-vm-2-kqdf2 to worker-dram-0
+9m15s       Normal    Pulled                            pod/virt-launcher-test-vm-2-kqdf2                           Container image "registry.redhat.io/container-native-virtualization/virt-launcher-rhel9@sha256:4f146657d2ee8905c16acf95a1c2fd5f2aca59c645de9b3f9fe484d740556ebc" already present on machine and can be accessed by the pod
+9m15s       Normal    AddedInterface                    pod/virt-launcher-test-vm-2-kqdf2                           Add eth0 [10.129.0.28/23] from ovn-kubernetes
+9m15s       Normal    Started                           pod/virt-launcher-test-vm-2-kqdf2                           Container started
+9m15s       Normal    Created                           pod/virt-launcher-test-vm-2-kqdf2                           Container created
+9m15s       Normal    Pulling                           pod/virt-launcher-test-vm-2-kqdf2                           Pulling image "quay.io/containerdisks/fedora:latest"
+9m14s       Normal    Started                           pod/virt-launcher-test-vm-2-kqdf2                           Container started
+9m14s       Normal    Pulled                            pod/virt-launcher-test-vm-2-kqdf2                           Successfully pulled image "quay.io/containerdisks/fedora:latest" in 522ms (522ms including waiting). Image size: 583733278 bytes.
+9m14s       Normal    Created                           pod/virt-launcher-test-vm-2-kqdf2                           Container created
+9m13s       Normal    Created                           pod/virt-launcher-test-vm-2-kqdf2                           Container created
+9m13s       Normal    Started                           pod/virt-launcher-test-vm-2-kqdf2                           Container started
+9m13s       Normal    Pulled                            pod/virt-launcher-test-vm-2-kqdf2                           Container image "registry.redhat.io/container-native-virtualization/virt-launcher-rhel9@sha256:4f146657d2ee8905c16acf95a1c2fd5f2aca59c645de9b3f9fe484d740556ebc" already present on machine and can be accessed by the pod
+9m13s       Normal    Pulling                           pod/virt-launcher-test-vm-2-kqdf2                           Pulling image "quay.io/containerdisks/fedora:latest"
+9m12s       Normal    Started                           pod/virt-launcher-test-vm-2-kqdf2                           Container started
+9m12s       Normal    Created                           pod/virt-launcher-test-vm-2-kqdf2                           Container created
+9m12s       Normal    Pulled                            pod/virt-launcher-test-vm-2-kqdf2                           Successfully pulled image "quay.io/containerdisks/fedora:latest" in 479ms (479ms including waiting). Image size: 583733278 bytes.
+9m10s       Normal    Created                           virtualmachineinstance/test-vm-2                            VirtualMachineInstance defined.
+9m10s       Warning   MACCollision                      virtualmachineinstance/test-vm-2                            MAC 02:72:29:41:74:3a: Collision between vmi/test-vm/test-vm, vmi/test-vm/test-vm-2
+9m10s       Normal    Started                           virtualmachineinstance/test-vm-2                            VirtualMachineInstance started.
+9m4s        Warning   BackOff                           pod/virt-launcher-test-vm-2-kqdf2                           Back-off restarting failed container guest-console-log in pod virt-launcher-test-vm-2-kqdf2_test-vm(d3bb4eda-54af-4397-93ec-e67a2e197dec)
+9m3s        Normal    Pulled                            pod/virt-launcher-test-vm-2-kqdf2                           Container image "registry.redhat.io/container-native-virtualization/virt-launcher-rhel9@sha256:4f146657d2ee8905c16acf95a1c2fd5f2aca59c645de9b3f9fe484d740556ebc" already present on machine and can be accessed by the pod
+9m2s        Normal    Created                           pod/virt-launcher-test-vm-2-kqdf2                           Container created
+9m2s        Normal    Started                           pod/virt-launcher-test-vm-2-kqdf2                           Container started
+8m50s       Warning   FailedScheduling                  pod/virt-launcher-test-vm-2-fgzp6                           0/4 nodes are available: 1 node(s) didn't match pod anti-affinity rules, 3 node(s) didn't match Pod's node affinity/selector. preemption: 0/4 nodes are available: 1 No preemption victims found for incoming pod, 3 Preemption is not helpful for scheduling.
+8m50s       Normal    SuccessfulCreate                  virtualmachineinstancemigration/kubevirt-evacuation-2clt9   Created migration target pod virt-launcher-test-vm-2-fgzp6
+8m50s       Normal    SuccessfulCreate                  virtualmachineinstance/test-vm-2                            Created Migration kubevirt-evacuation-2clt9
+4m45s       Normal    SuccessfulCreate                  virtualmachineinstance/test-vm-2                            Created Migration kubevirt-evacuation-x4ldz
+4m45s       Normal    SuccessfulCreate                  virtualmachineinstancemigration/kubevirt-evacuation-x4ldz   Created migration target pod virt-launcher-test-vm-2-h9m8s
+4m45s       Warning   FailedMigration                   virtualmachineinstancemigration/kubevirt-evacuation-2clt9   Migration failed due to being canceled
+4m45s       Normal    Scheduled                         pod/virt-launcher-test-vm-2-h9m8s                           Successfully assigned test-vm/virt-launcher-test-vm-2-h9m8s to worker-cxl-0
+4m45s       Normal    SuccessfulDelete                  virtualmachineinstancemigration/kubevirt-evacuation-2clt9   migration canceled and pod test-vm/virt-launcher-test-vm-2-fgzp6 is deleted
+4m45s       Warning   migrationTargetPodUnschedulable   virtualmachineinstancemigration/kubevirt-evacuation-2clt9   Migration target pod for VMI [test-vm/test-vm-2] is currently unschedulable.
+4m44s       Normal    ShuttingDown                      virtualmachineinstance/test-vm-2                            Signaled Graceful Shutdown
+4m44s       Normal    SuccessfulDelete                  virtualmachine/test-vm-2                                    Stopped the virtual machine by deleting the virtual machine instance 0d089b59-6161-4e54-bc44-d29452206e0a
+4m43s       Normal    Killing                           pod/virt-launcher-test-vm-2-kqdf2                           Stopping container compute
+4m43s       Warning   FailedMigration                   virtualmachineinstancemigration/kubevirt-evacuation-x4ldz   Migration failed because target pod shutdown during migration
+4m43s       Normal    Killing                           pod/virt-launcher-test-vm-2-kqdf2                           Stopping container guest-console-log
+4m43s       Normal    SuccessfulDelete                  virtualmachineinstance/test-vm-2                            Deleted virtual machine pod virt-launcher-test-vm-2-h9m8s
+4m42s       Normal    Stopped                           virtualmachineinstance/test-vm-2                            The VirtualMachineInstance was shut down.
+4m42s       Normal    Deleted                           virtualmachineinstance/test-vm-2                            Signaled Deletion
+4m41s       Normal    SuccessfulDelete                  virtualmachineinstance/test-vm-2                            Deleted virtual machine pod virt-launcher-test-vm-2-kqdf2
+4m14s       Normal    SuccessfulCreate                  virtualmachineinstance/test-vm-2                            Created virtual machine pod virt-launcher-test-vm-2-rtvj9
+4m14s       Normal    Scheduled                         pod/virt-launcher-test-vm-2-rtvj9                           Successfully assigned test-vm/virt-launcher-test-vm-2-rtvj9 to worker-cxl-0
+4m14s       Normal    AddedInterface                    pod/virt-launcher-test-vm-2-rtvj9                           Add eth0 [10.130.0.15/23] from ovn-kubernetes
+4m14s       Normal    Pulled                            pod/virt-launcher-test-vm-2-rtvj9                           Container image "registry.redhat.io/container-native-virtualization/virt-launcher-rhel9@sha256:4f146657d2ee8905c16acf95a1c2fd5f2aca59c645de9b3f9fe484d740556ebc" already present on machine and can be accessed by the pod
+4m13s       Normal    Pulling                           pod/virt-launcher-test-vm-2-rtvj9                           Pulling image "quay.io/containerdisks/fedora:latest"
+4m13s       Normal    Started                           pod/virt-launcher-test-vm-2-rtvj9                           Container started
+4m13s       Normal    Created                           pod/virt-launcher-test-vm-2-rtvj9                           Container created
+4m12s       Normal    Started                           pod/virt-launcher-test-vm-2-rtvj9                           Container started
+4m12s       Normal    Pulled                            pod/virt-launcher-test-vm-2-rtvj9                           Successfully pulled image "quay.io/containerdisks/fedora:latest" in 579ms (579ms including waiting). Image size: 583733278 bytes.
+4m12s       Normal    Created                           pod/virt-launcher-test-vm-2-rtvj9                           Container created
+4m11s       Normal    Pulled                            pod/virt-launcher-test-vm-2-rtvj9                           Container image "registry.redhat.io/container-native-virtualization/virt-launcher-rhel9@sha256:4f146657d2ee8905c16acf95a1c2fd5f2aca59c645de9b3f9fe484d740556ebc" already present on machine and can be accessed by the pod
+4m11s       Normal    Created                           pod/virt-launcher-test-vm-2-rtvj9                           Container created
+4m11s       Normal    Started                           pod/virt-launcher-test-vm-2-rtvj9                           Container started
+4m11s       Normal    Pulling                           pod/virt-launcher-test-vm-2-rtvj9                           Pulling image "quay.io/containerdisks/fedora:latest"
+4m11s       Normal    Pulled                            pod/virt-launcher-test-vm-2-rtvj9                           Successfully pulled image "quay.io/containerdisks/fedora:latest" in 392ms (392ms including waiting). Image size: 583733278 bytes.
+4m10s       Normal    Started                           pod/virt-launcher-test-vm-2-rtvj9                           Container started
+4m10s       Normal    Created                           pod/virt-launcher-test-vm-2-rtvj9                           Container created
+4m8s        Warning   MACCollision                      virtualmachineinstance/test-vm-2                            MAC 02:72:29:41:74:3a: Collision between vmi/test-vm/test-vm, vmi/test-vm/test-vm-2
+4m8s        Normal    Started                           virtualmachineinstance/test-vm-2                            VirtualMachineInstance started.
+4m8s        Normal    Created                           virtualmachineinstance/test-vm-2                            VirtualMachineInstance defined.
+4m4s        Warning   BackOff                           pod/virt-launcher-test-vm-2-rtvj9                           Back-off restarting failed container guest-console-log in pod virt-launcher-test-vm-2-rtvj9_test-vm(94d81834-2af0-4a2b-9d17-cf7809365831)
+4m          Normal    Pulled                            pod/virt-launcher-test-vm-2-rtvj9                           Container image "registry.redhat.io/container-native-virtualization/virt-launcher-rhel9@sha256:4f146657d2ee8905c16acf95a1c2fd5f2aca59c645de9b3f9fe484d740556ebc" already present on machine and can be accessed by the pod
+4m          Normal    Created                           pod/virt-launcher-test-vm-2-rtvj9                           Container created
+4m          Normal    Started                           pod/virt-launcher-test-vm-2-rtvj9                           Container started
+2m26s       Normal    Killing                           pod/virt-launcher-test-vm-2-rtvj9                           Stopping container compute
+2m26s       Normal    SuccessfulDelete                  virtualmachine/test-vm-2                                    Stopped the virtual machine by deleting the virtual machine instance 962c2173-d252-457f-8b7b-fdc952af546f
+2m26s       Normal    Killing                           pod/virt-launcher-test-vm-2-rtvj9                           Stopping container guest-console-log
+2m25s       Normal    ShuttingDown                      virtualmachineinstance/test-vm-2                            Signaled Graceful Shutdown
+2m24s       Normal    Deleted                           virtualmachineinstance/test-vm-2                            Signaled Deletion
+2m24s       Normal    Stopped                           virtualmachineinstance/test-vm-2                            The VirtualMachineInstance was shut down.
+2m23s       Normal    SuccessfulDelete                  virtualmachineinstance/test-vm-2                            Deleted virtual machine pod virt-launcher-test-vm-2-rtvj9
+2m          Normal    Scheduled                         pod/virt-launcher-test-vm-2-f2khx                           Successfully assigned test-vm/virt-launcher-test-vm-2-f2khx to worker-dram-0
+2m          Normal    SuccessfulCreate                  virtualmachineinstance/test-vm-2                            Created virtual machine pod virt-launcher-test-vm-2-f2khx
+2m          Normal    SuccessfulCreate                  virtualmachine/test-vm-2                                    Started the virtual machine by creating the new virtual machine instance test-vm-2
+2m          Normal    AddedInterface                    pod/virt-launcher-test-vm-2-f2khx                           Add eth0 [10.129.0.34/23] from ovn-kubernetes
+119s        Normal    Pulled                            pod/virt-launcher-test-vm-2-f2khx                           Container image "registry.redhat.io/container-native-virtualization/virt-launcher-rhel9@sha256:4f146657d2ee8905c16acf95a1c2fd5f2aca59c645de9b3f9fe484d740556ebc" already present on machine and can be accessed by the pod
+119s        Normal    Started                           pod/virt-launcher-test-vm-2-f2khx                           Container started
+119s        Normal    Pulling                           pod/virt-launcher-test-vm-2-f2khx                           Pulling image "quay.io/containerdisks/fedora:latest"
+119s        Normal    Pulled                            pod/virt-launcher-test-vm-2-f2khx                           Successfully pulled image "quay.io/containerdisks/fedora:latest" in 439ms (439ms including waiting). Image size: 583733278 bytes.
+119s        Normal    Created                           pod/virt-launcher-test-vm-2-f2khx                           Container created
+118s        Normal    Created                           pod/virt-launcher-test-vm-2-f2khx                           Container created
+118s        Normal    Pulled                            pod/virt-launcher-test-vm-2-f2khx                           Container image "registry.redhat.io/container-native-virtualization/virt-launcher-rhel9@sha256:4f146657d2ee8905c16acf95a1c2fd5f2aca59c645de9b3f9fe484d740556ebc" already present on machine and can be accessed by the pod
+118s        Normal    Started                           pod/virt-launcher-test-vm-2-f2khx                           Container started
+118s        Normal    Pulled                            pod/virt-launcher-test-vm-2-f2khx                           Container image "registry.redhat.io/container-native-virtualization/virt-launcher-rhel9@sha256:4f146657d2ee8905c16acf95a1c2fd5f2aca59c645de9b3f9fe484d740556ebc" already present on machine and can be accessed by the pod
+118s        Normal    Created                           pod/virt-launcher-test-vm-2-f2khx                           Container created
+118s        Normal    Started                           pod/virt-launcher-test-vm-2-f2khx                           Container started
+118s        Normal    Pulled                            pod/virt-launcher-test-vm-2-f2khx                           Successfully pulled image "quay.io/containerdisks/fedora:latest" in 434ms (434ms including waiting). Image size: 583733278 bytes.
+118s        Normal    Pulling                           pod/virt-launcher-test-vm-2-f2khx                           Pulling image "quay.io/containerdisks/fedora:latest"
+118s        Normal    Started                           pod/virt-launcher-test-vm-2-f2khx                           Container started
+118s        Normal    Created                           pod/virt-launcher-test-vm-2-f2khx                           Container created
+117s        Normal    Created                           pod/virt-launcher-test-vm-2-f2khx                           Container created
+117s        Normal    Started                           pod/virt-launcher-test-vm-2-f2khx                           Container started
+115s        Warning   MACCollision                      virtualmachineinstance/test-vm                              MAC 02:72:29:41:74:3a: Collision between vmi/test-vm/test-vm, vmi/test-vm/test-vm-2
+115s        Normal    Created                           virtualmachineinstance/test-vm-2                            VirtualMachineInstance defined.
+115s        Normal    Started                           virtualmachineinstance/test-vm-2                            VirtualMachineInstance started.
+115s        Warning   MACCollision                      virtualmachineinstance/test-vm-2                            MAC 02:72:29:41:74:3a: Collision between vmi/test-vm/test-vm, vmi/test-vm/test-vm-2
+110s        Normal    Pulled                            pod/virt-launcher-test-vm-2-htp5c                           Container image "registry.redhat.io/container-native-virtualization/virt-launcher-rhel9@sha256:4f146657d2ee8905c16acf95a1c2fd5f2aca59c645de9b3f9fe484d740556ebc" already present on machine and can be accessed by the pod
+110s        Normal    SuccessfulCreate                  virtualmachineinstance/test-vm-2                            Created Migration kubevirt-evacuation-j5kbq
+110s        Normal    Scheduled                         pod/virt-launcher-test-vm-2-htp5c                           Successfully assigned test-vm/virt-launcher-test-vm-2-htp5c to worker-cxl-0
+110s        Normal    AddedInterface                    pod/virt-launcher-test-vm-2-htp5c                           Add eth0 [10.130.0.16/23] from ovn-kubernetes
+110s        Normal    SuccessfulCreate                  virtualmachineinstancemigration/kubevirt-evacuation-j5kbq   Created migration target pod virt-launcher-test-vm-2-htp5c
+110s        Normal    Started                           pod/virt-launcher-test-vm-2-htp5c                           Container started
+110s        Normal    Created                           pod/virt-launcher-test-vm-2-htp5c                           Container created
+108s        Normal    Pulled                            pod/virt-launcher-test-vm-2-htp5c                           Container image "registry.redhat.io/container-native-virtualization/virt-launcher-rhel9@sha256:4f146657d2ee8905c16acf95a1c2fd5f2aca59c645de9b3f9fe484d740556ebc" already present on machine and can be accessed by the pod
+108s        Normal    Started                           pod/virt-launcher-test-vm-2-htp5c                           Container started
+108s        Normal    Created                           pod/virt-launcher-test-vm-2-htp5c                           Container created
+108s        Normal    Pulled                            pod/virt-launcher-test-vm-2-htp5c                           Successfully pulled image "quay.io/containerdisks/fedora@sha256:1217dcc8c58dbc3ca08e0323929b86f609506121adb01d0fd892232f2c0544f6" in 389ms (389ms including waiting). Image size: 583733278 bytes.
+108s        Normal    Pulling                           pod/virt-launcher-test-vm-2-htp5c                           Pulling image "quay.io/containerdisks/fedora@sha256:1217dcc8c58dbc3ca08e0323929b86f609506121adb01d0fd892232f2c0544f6"
+107s        Normal    Created                           pod/virt-launcher-test-vm-2-htp5c                           Container created
+107s        Normal    Started                           pod/virt-launcher-test-vm-2-htp5c                           Container started
+107s        Normal    SuccessfulHandOver                virtualmachineinstancemigration/kubevirt-evacuation-j5kbq   Migration target pod is ready for preparation by virt-handler.
+107s        Normal    Started                           pod/virt-launcher-test-vm-2-htp5c                           Container started
+107s        Normal    Created                           pod/virt-launcher-test-vm-2-htp5c                           Container created
+107s        Normal    Pulled                            pod/virt-launcher-test-vm-2-htp5c                           Successfully pulled image "quay.io/containerdisks/fedora@sha256:1217dcc8c58dbc3ca08e0323929b86f609506121adb01d0fd892232f2c0544f6" in 455ms (455ms including waiting). Image size: 583733278 bytes.
+107s        Normal    Pulling                           pod/virt-launcher-test-vm-2-htp5c                           Pulling image "quay.io/containerdisks/fedora@sha256:1217dcc8c58dbc3ca08e0323929b86f609506121adb01d0fd892232f2c0544f6"
+105s        Normal    PreparingTarget                   virtualmachineinstance/test-vm-2                            Migration Target is listening at 10.130.0.12, on ports: 34423,34141,36751
+105s        Normal    Migrating                         virtualmachineinstance/test-vm-2                            VirtualMachineInstance is migrating.
+105s        Normal    PreparingTarget                   virtualmachineinstance/test-vm-2                            VirtualMachineInstance Migration Target Prepared.
+104s        Normal    Deleted                           virtualmachineinstance/test-vm-2                            Signaled Deletion
+104s        Normal    SuccessfulMigration               virtualmachineinstancemigration/kubevirt-evacuation-j5kbq   Source node reported migration succeeded
+104s        Normal    Migrated                          virtualmachineinstance/test-vm-2                            The VirtualMachineInstance migrated to node worker-cxl-0.
+103s        Normal    Killing                           pod/virt-launcher-test-vm-2-f2khx                           Stopping container guest-console-log
+102s        Warning   BackOff                           pod/virt-launcher-test-vm-2-htp5c                           Back-off restarting failed container guest-console-log in pod virt-launcher-test-vm-2-htp5c_test-vm(13f032fb-4be2-46d9-866d-bca53a4c5c6f)
+96s         Normal    Created                           pod/virt-launcher-test-vm-2-htp5c                           Container created
+96s         Normal    Started                           pod/virt-launcher-test-vm-2-htp5c                           Container started
+96s         Normal    Pulled                            pod/virt-launcher-test-vm-2-htp5c                           Container image "registry.redhat.io/container-native-virtualization/virt-launcher-rhel9@sha256:4f146657d2ee8905c16acf95a1c2fd5f2aca59c645de9b3f9fe484d740556ebc" already present on machine and can be accessed by the pod

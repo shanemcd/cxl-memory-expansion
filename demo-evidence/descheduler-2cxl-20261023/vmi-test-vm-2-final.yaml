@@ -1,0 +1,191 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachineInstance
+metadata:
+  annotations:
+    demo: descheduler-target
+    kubevirt.io/latest-observed-api-version: v1
+    kubevirt.io/nonroot: "true"
+    kubevirt.io/pci-topology-version: v3
+    kubevirt.io/storage-observed-api-version: v1
+    kubevirt.io/vm-generation: "10"
+  creationTimestamp: "2026-10-23T22:44:55Z"
+  finalizers:
+  - kubevirt.io/virtualMachineControllerFinalize
+  - kubevirt.io/foregroundDeleteVirtualMachine
+  generation: 26
+  labels:
+    kubevirt.io/nodeName: worker-cxl-0
+    kubevirt.io/vm: test-vm
+  name: test-vm-2
+  namespace: test-vm
+  ownerReferences:
+  - apiVersion: kubevirt.io/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: VirtualMachine
+    name: test-vm-2
+    uid: ffdd460f-5b19-49a1-8d50-37b264230079
+  resourceVersion: "2227306"
+  uid: 907673bc-0c6f-49af-8717-84c6dfcb29bb
+spec:
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - preference:
+          matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - worker-dram-0
+        weight: 100
+  architecture: amd64
+  domain:
+    cpu:
+      cores: 2
+      model: host-model
+    devices:
+      disks:
+      - disk:
+          bus: virtio
+        name: containerdisk
+      - disk:
+          bus: virtio
+        name: cloudinit
+      interfaces:
+      - macAddress: 02:72:29:41:74:3a
+        masquerade: {}
+        name: default
+    features:
+      acpi:
+        enabled: true
+    firmware:
+      serial: 2578724c-7285-40a3-8782-72b0906560c6
+      uuid: 97615e4c-e196-4b15-bebc-e00144813e47
+    machine:
+      type: pc-q35-rhel9.8.0
+    memory:
+      guest: 2Gi
+      maxGuest: 2Gi
+    resources: {}
+  evictionStrategy: LiveMigrate
+  networks:
+  - name: default
+    pod: {}
+  nodeSelector:
+    node-role.kubernetes.io/worker: ""
+  volumes:
+  - containerDisk:
+      image: quay.io/containerdisks/fedora:latest
+      imagePullPolicy: Always
+    name: containerdisk
+  - cloudInitNoCloud:
+      userData: |
+        #cloud-config
+        password: testvm
+        chpasswd:
+          expire: false
+    name: cloudinit
+status:
+  activePods:
+    13f032fb-4be2-46d9-866d-bca53a4c5c6f: worker-cxl-0
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2026-10-23T22:45:19Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: null
+    status: "True"
+    type: LiveMigratable
+  - lastProbeTime: null
+    lastTransitionTime: null
+    status: "True"
+    type: StorageLiveMigratable
+  - lastProbeTime: "2026-10-23T22:45:15Z"
+    lastTransitionTime: null
+    status: "True"
+    type: AgentConnected
+  currentCPUTopology:
+    cores: 2
+  guestOSInfo:
+    id: fedora
+    kernelRelease: 6.19.10-300.fc44.x86_64
+    kernelVersion: '#1 SMP PREEMPT_DYNAMIC Wed Mar 25 18:23:49 UTC 2026'
+    machine: x86_64
+    name: Fedora Linux
+    prettyName: Fedora Linux 44 (Cloud Edition)
+    version: 44 (Cloud Edition)
+    versionId: "44"
+  interfaces:
+  - infoSource: domain, guest-agent
+    interfaceName: enp1s0
+    ipAddress: 10.130.0.16
+    ipAddresses:
+    - 10.130.0.16
+    linkState: up
+    mac: 02:72:29:41:74:3a
+    name: default
+    podInterfaceName: eth0
+    queueCount: 1
+  launcherContainerImageVersion: registry.redhat.io/container-native-virtualization/virt-launcher-rhel9@sha256:4f146657d2ee8905c16acf95a1c2fd5f2aca59c645de9b3f9fe484d740556ebc
+  machine:
+    type: pc-q35-rhel9.8.0
+  memory:
+    guestAtBoot: 2Gi
+    guestCurrent: 2Gi
+    guestRequested: 2Gi
+    memoryOverhead: 296Mi
+  migrationMethod: BlockMigration
+  migrationState:
+    completed: true
+    endTimestamp: "2026-10-23T22:45:11Z"
+    migrationConfiguration:
+      allowAutoConverge: false
+      allowPostCopy: false
+      allowWorkloadDisruption: false
+      bandwidthPerMigration: "0"
+      completionTimeoutPerGiB: 20
+      maxDowntimeMs: 900
+      nodeDrainTaintKey: kubevirt.io/drain
+      parallelMigrationsPerCluster: 5
+      parallelOutboundMigrationsPerNode: 1
+      progressTimeout: 150
+      unsafeMigrationOverride: false
+      utilityVolumesTimeout: 150
+    migrationUid: ab457004-8b78-4a43-9eef-6570e26fd700
+    mode: PreCopy
+    sourceNode: worker-dram-0
+    sourcePod: virt-launcher-test-vm-2-f2khx
+    startTimestamp: "2026-10-23T22:45:10Z"
+    targetDirectMigrationNodePorts:
+      "34141": 49152
+      "34423": 0
+      "36751": 49153
+    targetMemoryOverhead: 296Mi
+    targetNode: worker-cxl-0
+    targetNodeAddress: 10.130.0.12
+    targetNodeDomainDetected: true
+    targetNodeDomainReadyTimestamp: "2026-10-23T22:45:11Z"
+    targetPod: virt-launcher-test-vm-2-htp5c
+  migrationTransport: Unix
+  nodeName: worker-cxl-0
+  phase: Running
+  phaseTransitionTimestamps:
+  - phase: Pending
+    phaseTransitionTimestamp: "2026-10-23T22:44:55Z"
+  - phase: Scheduling
+    phaseTransitionTimestamp: "2026-10-23T22:44:55Z"
+  - phase: Scheduled
+    phaseTransitionTimestamp: "2026-10-23T22:44:58Z"
+  - phase: Running
+    phaseTransitionTimestamp: "2026-10-23T22:45:00Z"
+  qosClass: Burstable
+  runtimeUser: 107
+  selinuxContext: system_u:object_r:container_file_t:s0:c259,c422
+  virtualMachineRevisionName: revision-start-vm-ffdd460f-5b19-49a1-8d50-37b264230079-10
+  volumeStatus:
+  - name: cloudinit
+    size: 1048576
+    target: vdb
+  - name: containerdisk
+    target: vda
