@@ -12,8 +12,8 @@ import sys
 import time
 
 budget, window, hold = map(int, sys.argv[1:4])
-if not (0 < budget <= 10240 and 0 < window <= 150 and 0 <= hold <= 45):
-    raise SystemExit("bounds: budget 1..10240MiB, window 1..150s, hold 0..45s")
+if not (0 < budget <= 10240 and 0 < window <= 1800 and 0 <= hold <= 600):
+    raise SystemExit("bounds: budget 1..10240MiB, window 1..1800s, hold 0..600s")
 
 
 def counters(path):
