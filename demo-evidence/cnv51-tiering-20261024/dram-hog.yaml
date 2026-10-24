@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dram-hog
+  namespace: descheduler-demo
+spec:
+  restartPolicy: Never
+  nodeSelector:
+    kubernetes.io/hostname: worker-dram-0
+  containers:
+  - name: hog
+    image: image-registry.openshift-image-registry.svc:5000/cxl-observability/memory-tier-exporter:latest
+    command: ["/usr/local/bin/memory-hog"]
+    args: ["-total-mb", "10240", "-hot-mb", "256"]
+    resources:
+      requests: {memory: 128Mi}
+      limits: {memory: 10600Mi}
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities: {drop: ["ALL"]}
+      runAsNonRoot: true
+      seccompProfile: {type: RuntimeDefault}

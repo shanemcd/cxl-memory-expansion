@@ -1,0 +1,58 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: test-vm
+  namespace: test-vm
+spec:
+  runStrategy: Always
+  template:
+    metadata:
+      labels:
+        kubevirt.io/domain: test-vm
+    spec:
+      evictionStrategy: LiveMigrate
+      nodeSelector:
+        node-role.kubernetes.io/worker-cxl: ""
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            preference:
+              matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values: [worker-cxl-0]
+      domain:
+        memory:
+          guest: 8Gi
+          maxGuest: 8Gi
+        devices:
+          disks:
+          - name: root
+            disk:
+              bus: virtio
+      volumes:
+      - name: root
+        containerDisk:
+          image: quay.io/containerdisks/fedora:latest
+      - name: cloudinit
+        cloudInitNoCloud:
+          userData: |
+            #cloud-config
+            users:
+            - name: root
+            packages: [python3]
+            write_files:
+            - path: /root/hog.py
+              content: |
+                import time
+                pages = bytearray(7000 * 1024 * 1024)
+                for i in range(0, len(pages), 4096):
+                    pages[i] = 1
+                while True:
+                    hot = pages[:256 * 1024 * 1024]
+                    for i in range(0, len(hot), 4096):
+                        hot[i] = (hot[i] + 1) & 0xFF
+                    time.sleep(10)
+            runcmd:
+            - [python3, /root/hog.py]

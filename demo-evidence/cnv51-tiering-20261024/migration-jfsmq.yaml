@@ -1,0 +1,74 @@
+apiVersion: v1
+items:
+- apiVersion: kubevirt.io/v1
+  kind: VirtualMachineInstanceMigration
+  metadata:
+    annotations:
+      kubevirt.io/evacuationMigration: worker-dram-0
+      kubevirt.io/latest-observed-api-version: v1
+      kubevirt.io/storage-observed-api-version: v1
+    creationTimestamp: "2026-10-24T15:56:06Z"
+    generateName: kubevirt-evacuation-
+    generation: 1
+    labels:
+      kubevirt.io/vmi-name: test-vm-2
+    name: kubevirt-evacuation-jfsmq
+    namespace: test-vm
+    resourceVersion: "577200"
+    uid: dfee0507-7bd3-4be4-9f67-78f743c951d9
+  spec:
+    priority: system-maintenance
+    vmiName: test-vm-2
+  status:
+    migrationState:
+      completed: true
+      endTimestamp: "2026-10-24T15:57:56Z"
+      migrationConfiguration:
+        allowAutoConverge: false
+        allowPostCopy: false
+        allowWorkloadDisruption: false
+        bandwidthPerMigration: "0"
+        completionTimeoutPerGiB: 20
+        maxDowntimeMs: 900
+        nodeDrainTaintKey: kubevirt.io/drain
+        parallelMigrationsPerCluster: 5
+        parallelOutboundMigrationsPerNode: 1
+        progressTimeout: 150
+        unsafeMigrationOverride: false
+        utilityVolumesTimeout: 150
+      migrationUid: dfee0507-7bd3-4be4-9f67-78f743c951d9
+      mode: PreCopy
+      sourceNode: worker-dram-0
+      sourcePod: virt-launcher-test-vm-2-j6xct
+      startTimestamp: "2026-10-24T15:57:54Z"
+      targetDirectMigrationNodePorts:
+        "36707": 0
+        "41803": 49152
+        "45077": 49153
+      targetMemoryOverhead: 288Mi
+      targetNode: worker-cxl-1
+      targetNodeAddress: 10.130.0.24
+      targetNodeDomainDetected: true
+      targetNodeDomainReadyTimestamp: "2026-10-24T15:57:56Z"
+      targetPod: virt-launcher-test-vm-2-6w7jn
+    phase: Succeeded
+    phaseTransitionTimestamps:
+    - phase: Pending
+      phaseTransitionTimestamp: "2026-10-24T15:56:06Z"
+    - phase: Scheduling
+      phaseTransitionTimestamp: "2026-10-24T15:56:06Z"
+    - phase: Scheduled
+      phaseTransitionTimestamp: "2026-10-24T15:57:53Z"
+    - phase: PreparingTarget
+      phaseTransitionTimestamp: "2026-10-24T15:57:53Z"
+    - phase: TargetReady
+      phaseTransitionTimestamp: "2026-10-24T15:57:54Z"
+    - phase: Running
+      phaseTransitionTimestamp: "2026-10-24T15:57:54Z"
+    - phase: Succeeded
+      phaseTransitionTimestamp: "2026-10-24T15:57:56Z"
+    synchronizationAddresses:
+    - 10.128.0.36:9185
+kind: List
+metadata:
+  resourceVersion: ""

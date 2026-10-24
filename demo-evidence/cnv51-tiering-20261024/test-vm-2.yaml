@@ -1,0 +1,43 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: test-vm-2
+  namespace: test-vm
+spec:
+  runStrategy: Always
+  template:
+    metadata:
+      labels:
+        kubevirt.io/domain: test-vm-2
+    spec:
+      evictionStrategy: LiveMigrate
+      nodeSelector:
+        node-role.kubernetes.io/worker: ""
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            preference:
+              matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values: [worker-dram-0]
+      domain:
+        memory:
+          guest: 2Gi
+          maxGuest: 2Gi
+        devices:
+          disks:
+          - name: root
+            disk:
+              bus: virtio
+      volumes:
+      - name: root
+        containerDisk:
+          image: quay.io/containerdisks/fedora:latest
+      - name: cloudinit
+        cloudInitNoCloud:
+          userData: |
+            #cloud-config
+            users:
+            - name: root

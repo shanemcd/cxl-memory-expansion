@@ -1,0 +1,3 @@
+pgdemote_kswapd 617607
+pgdemote_direct 1076
+Node 1 MemUsed:         4000728 kB
